@@ -62,8 +62,8 @@ export const TablaHistorial: React.FC<Props> = ({ historialCajas, paginaActual, 
               <th className="p-4 text-[10px] font-black tracking-widest uppercase border-r-2 border-[#E2E8F0] bg-[#FFFFFF]">Apertura</th>
               <th className="p-4 text-[10px] font-black tracking-widest uppercase border-r-2 border-[#E2E8F0] bg-[#FFFFFF]">Cierre</th>
               <th className="p-4 text-[10px] font-black tracking-widest uppercase border-r-2 border-[#E2E8F0] text-center bg-[#FFFFFF]">Fondo Inicial</th>
-              <th className="p-4 text-[10px] font-black tracking-widest uppercase border-r-2 border-[#E2E8F0] text-center bg-[#FFFFFF]">Físico Registrado</th>
-              <th className="p-4 text-[10px] font-black tracking-widest uppercase border-r-2 border-[#E2E8F0] text-center bg-[#FFFFFF]">Diferencia</th>
+              <th className="p-4 text-[10px] font-black tracking-widest uppercase border-r-2 border-[#E2E8F0] text-center bg-[#FFFFFF]">Efectivo / Yape / Tarjeta</th>
+              <th className="p-4 text-[10px] font-black tracking-widest uppercase border-r-2 border-[#E2E8F0] text-center bg-[#FFFFFF]">Diferencia Total</th>
               <th className="p-4 text-[10px] font-black tracking-widest uppercase text-center bg-[#FFFFFF]">Acciones</th>
             </tr>
           </thead>
@@ -76,10 +76,14 @@ export const TablaHistorial: React.FC<Props> = ({ historialCajas, paginaActual, 
               </tr>
             ) : (
               historialCajas.map((caja) => {
-                const esperado = Number(caja.expected_balance || 0);
-                const real = Number(caja.closing_balance || 0);
-                const diferencia = real - esperado;
-                
+                const esperadoEfectivo = Number(caja.expected_balance || 0);
+                const realEfectivo = Number(caja.closing_balance || 0);
+                const esperadoYape = Number(caja.expected_yape || 0);
+                const realYape = Number(caja.closing_yape || 0);
+                const esperadoTarjeta = Number(caja.expected_card || 0);
+                const realTarjeta = Number(caja.closing_card || 0);
+                const diferencia = (realEfectivo - esperadoEfectivo) + (realYape - esperadoYape) + (realTarjeta - esperadoTarjeta);
+
                 return (
                   <tr key={caja.id} className="border-b-2 border-[#E2E8F0] hover:bg-[#F8FAFC] transition-colors">
                     <td className="p-4 text-xs font-bold text-[#64748B] border-r-2 border-[#E2E8F0]">
@@ -91,8 +95,10 @@ export const TablaHistorial: React.FC<Props> = ({ historialCajas, paginaActual, 
                     <td className="p-4 text-sm font-black text-[#1E293B] text-center border-r-2 border-[#E2E8F0]">
                       S/ {Number(caja.opening_balance).toFixed(2)}
                     </td>
-                    <td className="p-4 text-sm font-black text-[#10B981] text-center border-r-2 border-[#E2E8F0]">
-                      S/ {real.toFixed(2)}
+                    <td className="p-4 text-xs font-black text-[#10B981] text-center border-r-2 border-[#E2E8F0] space-y-0.5">
+                      <p>S/ {realEfectivo.toFixed(2)}</p>
+                      <p className="text-[#3B82F6]">S/ {realYape.toFixed(2)}</p>
+                      <p className="text-[#8B5CF6]">S/ {realTarjeta.toFixed(2)}</p>
                     </td>
                     <td className={`p-4 text-sm font-black text-center border-r-2 border-[#E2E8F0] ${diferencia < 0 ? 'text-[#EF4444]' : (diferencia > 0 ? 'text-[#3B82F6]' : 'text-[#64748B]')}`}>
                       {diferencia !== 0 ? (diferencia > 0 ? `+ S/ ${diferencia.toFixed(2)}` : `- S/ ${Math.abs(diferencia).toFixed(2)}`) : 'CUADRE EXACTO'}

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Wallet, ArrowDownToLine, Lock, CreditCard, Smartphone, Banknote, ReceiptText } from 'lucide-react';
 import { supabase } from '../../db/supabase';
-import type { CashSession, CashMovement, MetricasCaja } from './types';
+import type { CashSession, CashMovement, SuperMetricas } from './types';
 
 import { ModalApertura } from './components/ModalApertura';
 import { TablaMovimientos } from './components/TablaMovimientos';
@@ -10,18 +10,6 @@ import { ModalNuevoMovimiento } from './components/ModalNuevoMovimiento';
 import { ModalCierre } from './components/ModalCierre';
 import { TablaHistorial } from './components/TablaHistorial';
 import { FiltroFechas } from './components/FiltroFechas';
-interface SuperMetricas {
-  fondoInicial: number;
-  ingresosExtra: number;
-  gastos: number;
-  ventasEfectivo: number;
-  ventasYape: number;
-  ventasTarjeta: number;
-  cobroDeudasEfectivo: number;
-  cobroDeudasYape: number;
-  efectivoEsperadoCaja: number;
-  totalFacturado: number; 
-}
 
 export const Finanzas: React.FC = () => {
   const [sessionActiva, setSessionActiva] = useState<CashSession | null>(null);
@@ -29,7 +17,6 @@ export const Finanzas: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   // Estados Clásicos y Nuevos
-  const [metricas, setMetricas] = useState<MetricasCaja>({ totalIngresos: 0, totalEgresos: 0, saldoActual: 0 });
   const [superMetricas, setSuperMetricas] = useState<SuperMetricas | null>(null);
 
   const [isAperturaModalOpen, setIsAperturaModalOpen] = useState(false);
@@ -164,13 +151,6 @@ export const Finanzas: React.FC = () => {
           cobroDeudasEfectivo: dEfectivo, cobroDeudasYape: dYape,
           efectivoEsperadoCaja: efectivoFisicoQueDebeHaber,
           totalFacturado: vEfectivo + vYape + vTarjeta
-        });
-
-        // Mantener compatibilidad con el Modal de Cierre Antiguo
-        setMetricas({
-          totalIngresos: vEfectivo + dEfectivo + ingresosExtra,
-          totalEgresos: gastos,
-          saldoActual: efectivoFisicoQueDebeHaber
         });
 
         // 🔥 ARQUITECTURA TÉCNICA: Ya no necesitamos inyectar datos falsos.
@@ -346,7 +326,9 @@ export const Finanzas: React.FC = () => {
       {sessionActiva && (
         <>
           <ModalNuevoMovimiento isOpen={isMovimientoModalOpen} onClose={() => setIsMovimientoModalOpen(false)} onSuccess={cargarDatosCaja} sessionId={sessionActiva.id} />
-          <ModalCierre isOpen={isCierreModalOpen} onClose={() => setIsCierreModalOpen(false)} onSuccess={cargarDatosCaja} sessionActiva={sessionActiva} metricas={metricas} />
+          {superMetricas && (
+            <ModalCierre isOpen={isCierreModalOpen} onClose={() => setIsCierreModalOpen(false)} onSuccess={cargarDatosCaja} sessionActiva={sessionActiva} superMetricas={superMetricas} />
+          )}
         </>
       )}
     </div>

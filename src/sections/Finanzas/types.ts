@@ -11,6 +11,10 @@ export interface CashSession {
   justification?: string;
   opening_yape?: number;
   opening_card?: number;
+  closing_yape?: number;
+  closing_card?: number;
+  expected_yape?: number;
+  expected_card?: number;
 }
 
 export interface CashMovement {
@@ -24,9 +28,16 @@ export interface CashMovement {
   flujo?: 'INTERNO' | 'EXTERNO'; // <-- NUEVO: Define si entra a la caja del negocio o personal
 }
 
-// Interfaz para las métricas rápidas de la pantalla principal
-export interface MetricasCaja {
-  totalIngresos: number;
-  totalEgresos: number;
-  saldoActual: number;
+// Métricas detalladas por método de pago (para el panel principal y el cierre de caja)
+export interface SuperMetricas {
+  fondoInicial: number;
+  ingresosExtra: number;
+  gastos: number;
+  ventasEfectivo: number;
+  ventasYape: number;
+  ventasTarjeta: number;
+  cobroDeudasEfectivo: number;
+  cobroDeudasYape: number;
+  efectivoEsperadoCaja: number;
+  totalFacturado: number;
 }
