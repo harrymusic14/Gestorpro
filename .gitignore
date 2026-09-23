@@ -23,3 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 *.rar
+
+# Copias de la base de datos (contienen datos reales)
+*.sql
+.env
