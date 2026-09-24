@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { X, Save, Shield, User, Lock, CheckSquare, Loader2 } from 'lucide-react';
 import type { Empleado, PermisosUsuario } from '../types';
 import { supabase } from '../../../db/supabase';
+import { useCerrarConEscape } from '../../../utils/useCerrarConEscape';
+import { clicConTeclado } from '../../../utils/clicConTeclado';
 
 interface ModalUsuarioProps {
   usuario: Empleado | null;
@@ -17,6 +19,7 @@ const PERMISOS_DEFAULT: PermisosUsuario = {
 };
 
 export const ModalUsuario: React.FC<ModalUsuarioProps> = ({ usuario, onClose }) => {
+  useCerrarConEscape(true, () => onClose()); // Escape (o "Atrás" del control de TV) cierra la ventana
   const isEditing = !!usuario;
   const [guardando, setGuardando] = useState(false);
 
@@ -122,7 +125,7 @@ export const ModalUsuario: React.FC<ModalUsuarioProps> = ({ usuario, onClose }) 
 
   return (
     <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
-      <div className="bg-white border-2 border-[#1E293B] w-full max-w-5xl max-h-[94dvh] sm:max-h-[90vh] flex flex-col shadow-[8px_8px_0_0_#1E293B]">
+      <div className="bg-white border-2 border-[#1E293B] w-full max-w-5xl max-h-[calc(var(--alto-pantalla)*0.94)] sm:max-h-[calc(var(--alto-pantalla)*0.9)] flex flex-col shadow-[8px_8px_0_0_#1E293B]">
         
         {/* HEADER */}
         <div className="bg-[#1E293B] p-4 flex justify-between items-center shrink-0">
@@ -189,33 +192,33 @@ export const ModalUsuario: React.FC<ModalUsuarioProps> = ({ usuario, onClose }) 
             <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 transition-opacity ${permisos.sistema_acceso_total ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
               <div className="bg-[#F8FAFC] p-3 border border-[#E2E8F0]">
                 <h4 className="text-[10px] font-black text-[#10B981] uppercase tracking-widest mb-3">Caja / POS</h4>
-                <div className="space-y-1" onClick={() => togglePermiso('caja_realizar_ventas')}><CheckboxItem label="Realizar Ventas (POS)" labelKey="caja_realizar_ventas" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('caja_abrir_cerrar_turno')}><CheckboxItem label="Abrir/Cerrar Turno" labelKey="caja_abrir_cerrar_turno" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('caja_ingresos_egresos')}><CheckboxItem label="Ingresos/Egresos Manuales" labelKey="caja_ingresos_egresos" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('caja_ver_fiados')}><CheckboxItem label="Ver Fiados" labelKey="caja_ver_fiados" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('caja_cobrar_deudas')}><CheckboxItem label="Cobrar/Amortizar Deudas" labelKey="caja_cobrar_deudas" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('caja_realizar_ventas'))}><CheckboxItem label="Realizar Ventas (POS)" labelKey="caja_realizar_ventas" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('caja_abrir_cerrar_turno'))}><CheckboxItem label="Abrir/Cerrar Turno" labelKey="caja_abrir_cerrar_turno" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('caja_ingresos_egresos'))}><CheckboxItem label="Ingresos/Egresos Manuales" labelKey="caja_ingresos_egresos" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('caja_ver_fiados'))}><CheckboxItem label="Ver Fiados" labelKey="caja_ver_fiados" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('caja_cobrar_deudas'))}><CheckboxItem label="Cobrar/Amortizar Deudas" labelKey="caja_cobrar_deudas" /></div>
               </div>
               <div className="bg-[#F8FAFC] p-3 border border-[#E2E8F0]">
                 <h4 className="text-[10px] font-black text-[#10B981] uppercase tracking-widest mb-3">Almacén</h4>
-                <div className="space-y-1" onClick={() => togglePermiso('almacen_ver_stock')}><CheckboxItem label="Ver Stock Productos" labelKey="almacen_ver_stock" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('almacen_ingresar_lotes')}><CheckboxItem label="Ingresar Lotes (Compras)" labelKey="almacen_ingresar_lotes" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('almacen_crear_editar_productos')}><CheckboxItem label="Crear/Editar Productos" labelKey="almacen_crear_editar_productos" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('almacen_eliminar_productos')}><CheckboxItem label="Eliminar Productos" labelKey="almacen_eliminar_productos" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('almacen_modificar_precios')}><CheckboxItem label="Modificar Precios" labelKey="almacen_modificar_precios" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('almacen_gestionar_proveedores')}><CheckboxItem label="Gestionar Proveedores" labelKey="almacen_gestionar_proveedores" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('almacen_registrar_mermas')}><CheckboxItem label="Registrar Mermas" labelKey="almacen_registrar_mermas" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('almacen_ver_stock'))}><CheckboxItem label="Ver Stock Productos" labelKey="almacen_ver_stock" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('almacen_ingresar_lotes'))}><CheckboxItem label="Ingresar Lotes (Compras)" labelKey="almacen_ingresar_lotes" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('almacen_crear_editar_productos'))}><CheckboxItem label="Crear/Editar Productos" labelKey="almacen_crear_editar_productos" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('almacen_eliminar_productos'))}><CheckboxItem label="Eliminar Productos" labelKey="almacen_eliminar_productos" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('almacen_modificar_precios'))}><CheckboxItem label="Modificar Precios" labelKey="almacen_modificar_precios" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('almacen_gestionar_proveedores'))}><CheckboxItem label="Gestionar Proveedores" labelKey="almacen_gestionar_proveedores" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('almacen_registrar_mermas'))}><CheckboxItem label="Registrar Mermas" labelKey="almacen_registrar_mermas" /></div>
               </div>
               <div className="bg-[#F8FAFC] p-3 border border-[#E2E8F0]">
                 <h4 className="text-[10px] font-black text-[#10B981] uppercase tracking-widest mb-3">Reportes</h4>
-                <div className="space-y-1" onClick={() => togglePermiso('reportes_ver_historial_ventas')}><CheckboxItem label="Ver Historial de Ventas" labelKey="reportes_ver_historial_ventas" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('reportes_anular_ventas')}><CheckboxItem label="Anular Ventas (Extornos)" labelKey="reportes_anular_ventas" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('reportes_ver_globales')}><CheckboxItem label="Ver Reportes Globales" labelKey="reportes_ver_globales" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('reportes_ver_historial_ventas'))}><CheckboxItem label="Ver Historial de Ventas" labelKey="reportes_ver_historial_ventas" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('reportes_anular_ventas'))}><CheckboxItem label="Anular Ventas (Extornos)" labelKey="reportes_anular_ventas" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('reportes_ver_globales'))}><CheckboxItem label="Ver Reportes Globales" labelKey="reportes_ver_globales" /></div>
               </div>
               <div className="bg-[#F8FAFC] p-3 border border-[#E2E8F0]">
                 <h4 className="text-[10px] font-black text-[#10B981] uppercase tracking-widest mb-3">Gerencia</h4>
-                <div className="space-y-1" onClick={() => togglePermiso('gerencia_ver_utilidades')}><CheckboxItem label="Ver Utilidades" labelKey="gerencia_ver_utilidades" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('gerencia_gestionar_usuarios')}><CheckboxItem label="Gestionar Usuarios" labelKey="gerencia_gestionar_usuarios" /></div>
-                <div className="space-y-1" onClick={() => togglePermiso('gerencia_configuracion_sistema')}><CheckboxItem label="Configuración Sistema" labelKey="gerencia_configuracion_sistema" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('gerencia_ver_utilidades'))}><CheckboxItem label="Ver Utilidades" labelKey="gerencia_ver_utilidades" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('gerencia_gestionar_usuarios'))}><CheckboxItem label="Gestionar Usuarios" labelKey="gerencia_gestionar_usuarios" /></div>
+                <div className="space-y-1" {...clicConTeclado(() => togglePermiso('gerencia_configuracion_sistema'))}><CheckboxItem label="Configuración Sistema" labelKey="gerencia_configuracion_sistema" /></div>
               </div>
             </div>
           </div>

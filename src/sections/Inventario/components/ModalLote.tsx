@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Save, Database, Search, Calculator, FileText, Check, Calendar, Loader2 } from 'lucide-react';
 import type { Product } from '../types';
 import { supabase } from '../../../db/supabase';
+import { useCerrarConEscape } from '../../../utils/useCerrarConEscape';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const ModalLote: React.FC<Props> = ({ isOpen, onClose, productos, initialProduct, initialLote, onLoteSaved }) => {
+  useCerrarConEscape(isOpen, onClose); // Escape (o "Atrás" del control de TV) cierra la ventana
   const [searchQuery, setSearchQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [showProviderDropdown, setShowProviderDropdown] = useState(false); // <-- NUEVO ESTADO
@@ -223,7 +225,7 @@ export const ModalLote: React.FC<Props> = ({ isOpen, onClose, productos, initial
 
   return (
     <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 font-mono">
-      <div className="bg-white w-full max-w-2xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[94dvh] sm:max-h-[75vh] sm:mt-10">
+      <div className="bg-white w-full max-w-2xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[calc(var(--alto-pantalla)*0.94)] sm:max-h-[calc(var(--alto-pantalla)*0.75)] sm:mt-10">
         
         {/* CABECERA */}
         <div className="bg-[#1E293B] text-white px-6 py-4 flex items-center justify-between shrink-0">

@@ -140,13 +140,13 @@ export const SideBar: React.FC<SideBarProps> = ({ isOpen, currentView, onNavigat
       </div>
 
       {/* NAVIGATION MENU */}
-      <nav className="flex-1 py-4 overflow-y-auto custom-scrollbar bg-white ml-1 overflow-x-hidden">
+      <nav className="flex-1 py-4 short:py-2 overflow-y-auto custom-scrollbar bg-white ml-1 overflow-x-hidden">
         
         {menuGroups.map((group, index) => (
-          <div key={index} className="mb-8 last:mb-0">
+          <div key={index} className="mb-8 short:mb-3 last:mb-0">
             
             {/* CATEGORY HEADER CON ACENTO VERDE */}
-            <div className={`flex items-center gap-2 mb-3 ${isOpen ? 'px-6' : 'justify-center'}`}>
+            <div className={`flex items-center gap-2 mb-3 short:mb-1 ${isOpen ? 'px-6' : 'justify-center'}`}>
               {isOpen ? (
                 <>
                   <div className="h-[2px] w-3 bg-[#10B981] shrink-0"></div>
@@ -170,7 +170,7 @@ export const SideBar: React.FC<SideBarProps> = ({ isOpen, currentView, onNavigat
                     key={item.id}
                     onClick={() => onNavigate(item.id)}
                     title={!isOpen ? item.name : undefined}
-                    className={`w-full text-left py-3 text-xs font-black uppercase tracking-widest transition-all border rounded-none flex items-center cursor-pointer ${
+                    className={`w-full text-left py-3 short:py-2 text-xs font-black uppercase tracking-widest transition-all border rounded-none flex items-center cursor-pointer ${
                       isOpen ? 'px-4 justify-between' : 'justify-center px-0'
                     } ${
                       isActive 

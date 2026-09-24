@@ -101,7 +101,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen w-full flex bg-[#1E293B] font-mono selection:bg-[#10B981] selection:text-white">
+    <div className="min-h-[var(--alto-pantalla)] w-full flex bg-[#1E293B] font-mono selection:bg-[#10B981] selection:text-white">
       
       {/* =========================================
           LADO IZQUIERDO: TERMINAL DE ACCESO

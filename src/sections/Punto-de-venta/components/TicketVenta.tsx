@@ -1,6 +1,7 @@
 import React from 'react';
 import { ShoppingCart, Trash2, Banknote, Pause, Play, Plus, Minus } from 'lucide-react';
 import type { CartItem } from '../types';
+import { clicConTeclado } from '../../../utils/clicConTeclado';
 
 interface Props {
   selectedIndex?: number;
@@ -185,10 +186,10 @@ export const TicketVenta: React.FC<Props> = ({ selectedIndex = -1, colIndex = 0,
             {cart.map((item, index) => (
               <div 
                 key={item.id} 
-                onClick={() => {
+                {...clicConTeclado(() => {
                   setSelectedIndex(index); // 🛡️ SELECCIÓN AL CLIC EN LA FILA
                   setColIndex(0);
-                }}
+                })}
                 className={`grid grid-cols-12 gap-2 text-xs font-bold border-b border-dashed border-[#CBD5E1] pb-2 pt-2 items-center px-1 rounded-none transition-colors cursor-pointer ${
                   index === selectedIndex 
                     ? 'bg-[#64748B] shadow-[inset_0_0_8px_rgba(0,0,0,0.2)]' 

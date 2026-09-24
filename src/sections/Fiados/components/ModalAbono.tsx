@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Banknote, CreditCard, Smartphone, Calculator } from 'lucide-react';
 import { supabase } from '../../../db/supabase';
 import type { Fiado } from '../types';
+import { useCerrarConEscape } from '../../../utils/useCerrarConEscape';
 
 interface Props {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const ModalAbono: React.FC<Props> = ({ isOpen, onClose, onConfirm, fiado }) => {
+  useCerrarConEscape(isOpen, onClose); // Escape (o "Atrás" del control de TV) cierra la ventana
   const [efectivo, setEfectivo] = useState<string>('');
   const [yape, setYape] = useState<string>('');
   const [tarjeta, setTarjeta] = useState<string>('');
@@ -77,7 +79,7 @@ export const ModalAbono: React.FC<Props> = ({ isOpen, onClose, onConfirm, fiado 
 
   return (
     <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 font-mono">
-      <div className="max-h-[94dvh] overflow-y-auto bg-white w-full max-w-md border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col rounded-none">
+      <div className="max-h-[calc(var(--alto-pantalla)*0.94)] overflow-y-auto bg-white w-full max-w-md border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col rounded-none">
         
         {/* HEADER */}
         <div className="bg-[#10B981] text-[#1E293B] px-6 py-4 flex justify-between items-center shrink-0 border-b-2 border-[#1E293B]">

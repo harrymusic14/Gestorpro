@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Eye, Edit,  Banknote, RotateCcw, FilterX, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Fiado } from '../types';
+import { clicConTeclado } from '../../../utils/clicConTeclado';
 
 interface Props {
   fiados: Fiado[];
@@ -145,7 +146,7 @@ export const TablaFiados: React.FC<Props> = ({ fiados, onView, onEdit, onPay, on
           <tbody>
             {currentFiados.length === 0 ? (
               <tr>
-                <td colSpan={7} className="p-4 sm:p-6 lg:p-8 text-center text-[#94A3B8] font-bold text-xs uppercase bg-white">
+                <td colSpan={7} className="p-4 sm:p-6 lg:p-8 short:py-4 text-center text-[#94A3B8] font-bold text-xs uppercase bg-white">
                   No se encontraron deudas
                 </td>
               </tr>
@@ -153,7 +154,7 @@ export const TablaFiados: React.FC<Props> = ({ fiados, onView, onEdit, onPay, on
               currentFiados.map(fiado => (
                 <tr
                   key={fiado.id}
-                  onClick={() => onView(fiado)}
+                  {...clicConTeclado(() => onView(fiado))}
                   className="border-b border-[#E2E8F0] hover:bg-[#F8FAFC] transition-colors cursor-pointer"
                   title="Click para ver detalle"
                 >

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Banknote, Smartphone, CreditCard, CheckCircle2, Calculator, UserPlus, Calendar, ChevronDown, Plus } from 'lucide-react';
 import { supabase } from '../../../db/supabase';
 import type { CartItem } from '../types';
+import { clicConTeclado } from '../../../utils/clicConTeclado';
 
 // NUEVA INTERFAZ PARA LOS DATOS DEL FIADO
 export interface FiadoData {
@@ -150,7 +151,7 @@ interface Props {
 
   return (
     <div className="fixed inset-0 bg-[#1E293B]/90 backdrop-blur-sm z-[99999] flex items-start justify-center pt-2 sm:pt-17 pb-2 sm:pb-4 px-2 sm:px-4 font-mono">
-      <div className="bg-white w-full max-w-md border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[94dvh] sm:max-h-[90vh]">
+      <div className="bg-white w-full max-w-md border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[calc(var(--alto-pantalla)*0.94)] sm:max-h-[calc(var(--alto-pantalla)*0.9)]">
         
         <div className="bg-[#10B981] text-[#1E293B] px-4 py-3 flex items-center justify-between border-b-2 border-[#1E293B] shrink-0">
           <h2 className="text-lg font-black uppercase tracking-widest flex items-center gap-2">
@@ -312,7 +313,7 @@ interface Props {
                   <label className="text-[10px] font-black text-[#92400E] uppercase">Buscar Cliente Existente *</label>
                   <div 
                     className="flex items-center justify-between border-2 border-[#FCD34D] bg-white p-2 cursor-text transition-colors rounded-none focus-within:border-[#F59E0B]"
-                    onClick={() => setIsDropdownOpen(true)}
+                    {...clicConTeclado(() => setIsDropdownOpen(true))}
                   >
                     <input
                       type="text"
@@ -343,14 +344,14 @@ interface Props {
                             <div
                               key={c.id}
                               className="p-3 text-[11px] font-black uppercase text-[#1E293B] hover:bg-[#F59E0B] hover:text-white cursor-pointer border-b border-[#E2E8F0] last:border-0 transition-colors flex justify-between items-center rounded-none"
-                              onClick={() => {
+                              {...clicConTeclado(() => {
                                 setClienteId(c.id?.toString() || ''); // <-- GUARDAMOS EL ID AL SELECCIONAR
                                 setClienteNombre(c.nombre || c.name || '');
                                 setClienteDni(c.dni || '');
                                 setClienteTelefono(c.telefono || '');
                                 setSearchCliente('');
                                 setIsDropdownOpen(false);
-                              }}
+                              })}
                             >
                               <span>{c.nombre || c.name || 'SIN NOMBRE'}</span>
                               {c.dni && <span className="text-[10px] opacity-70">DNI:{c.dni}</span>}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Database,Layers, Edit, Trash2, History, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from '../../../db/supabase';
 import { formatearCantidad } from '../../../utils/formato';
+import { clicConTeclado } from '../../../utils/clicConTeclado';
 
 interface Lote {
   id: string;
@@ -244,7 +245,7 @@ export const TablaLotes: React.FC<Props> = ({
     // SE AGRANDÓ LA LETRA BASE DE LA FILA (text-base)
     <div
       key={lote.id}
-      onClick={() => onEditLote && onEditLote(lote)}
+      {...clicConTeclado(() => onEditLote && onEditLote(lote))}
       className="grid grid-cols-12 items-center p-4 border-b border-[#F1F5F9] hover:bg-[#F8FAFC] transition-colors group text-base cursor-pointer"
       title="Click para editar"
     >

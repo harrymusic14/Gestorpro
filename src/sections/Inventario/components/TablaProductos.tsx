@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Database, ArrowUpDown, Search, Edit, Trash2, ChevronLeft, ChevronRight, Check, X, History, Barcode, Image as ImageIcon } from 'lucide-react';
 import { EtiquetaStock } from './EtiquetaStock';
 import type { Product } from '../types';
+import { clicConTeclado } from '../../../utils/clicConTeclado';
 
 interface Props {
   loading: boolean;
@@ -221,7 +222,7 @@ export const TablaProductos: React.FC<Props> = ({
             return (
               <div
                 key={item.id}
-                onClick={() => onEditProduct ? onEditProduct(item) : startEditing(item)}
+                {...clicConTeclado(() => onEditProduct ? onEditProduct(item) : startEditing(item))}
                 className="grid grid-cols-12 items-center p-4 border-b border-[#F1F5F9] hover:bg-[#F8FAFC] transition-colors group cursor-pointer"
                 title="Click para editar"
               >

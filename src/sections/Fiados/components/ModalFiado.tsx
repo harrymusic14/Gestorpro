@@ -4,6 +4,8 @@ import { supabase } from '../../../db/supabase';
 import { formatearCantidad } from '../../../utils/formato';
 import type { Fiado, FiadoDetalle, Cliente } from '../types';
 import type { Product } from '../../Inventario/types';
+import { useCerrarConEscape } from '../../../utils/useCerrarConEscape';
+import { clicConTeclado } from '../../../utils/clicConTeclado';
 
 interface Props {
   isOpen: boolean;
@@ -15,6 +17,7 @@ interface Props {
 }
 
 export const ModalFiado: React.FC<Props> = ({ isOpen, onClose, onSave, fiadoAEditar, clientes, productos }) => {
+  useCerrarConEscape(isOpen, onClose); // Escape (o "Atrás" del control de TV) cierra la ventana
   const [clienteSeleccionado, setClienteSeleccionado] = useState<string>('');
   const [fechaVencimiento, setFechaVencimiento] = useState('');
   const [detalles, setDetalles] = useState<FiadoDetalle[]>([]);
@@ -241,7 +244,7 @@ export const ModalFiado: React.FC<Props> = ({ isOpen, onClose, onSave, fiadoAEdi
 
   return (
     <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-2 sm:p-4 font-mono">
-      <div className="bg-white w-full max-w-4xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col h-[94dvh] sm:h-[85vh]">
+      <div className="bg-white w-full max-w-4xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col h-[calc(var(--alto-pantalla)*0.94)] sm:h-[calc(var(--alto-pantalla)*0.85)]">
         
         <div className="bg-[#1E293B] text-white px-4 sm:px-6 py-4 flex justify-between items-center gap-3 shrink-0">
           <div className="flex items-center gap-3">
@@ -262,7 +265,7 @@ export const ModalFiado: React.FC<Props> = ({ isOpen, onClose, onSave, fiadoAEdi
               
               <div 
                 className={`flex items-center justify-between border-2 border-[#E2E8F0] bg-white p-2 cursor-text transition-colors rounded-none ${isEdit ? 'bg-[#F8FAFC] cursor-not-allowed opacity-70' : 'focus-within:border-[#F59E0B]'}`}
-                onClick={() => !isEdit && setIsDropdownOpen(true)}
+                {...clicConTeclado(() => !isEdit && setIsDropdownOpen(true))}
               >
                 <input
                   type="text"
@@ -300,11 +303,11 @@ export const ModalFiado: React.FC<Props> = ({ isOpen, onClose, onSave, fiadoAEdi
                         <div
                           key={c.id}
                           className="p-3 text-xs font-black uppercase text-[#1E293B] hover:bg-[#F59E0B] hover:text-white cursor-pointer border-b border-[#E2E8F0] last:border-0 transition-colors"
-                          onClick={() => {
+                          {...clicConTeclado(() => {
                             setClienteSeleccionado(c.nombre);
                             setSearchCliente('');
                             setIsDropdownOpen(false);
-                          }}
+                          })}
                         >
                           {c.nombre} <span className="text-[10px] font-bold text-inherit opacity-70 ml-2">{c.dni ? `(DNI: ${c.dni})` : ''}</span>
                         </div>
@@ -346,7 +349,7 @@ export const ModalFiado: React.FC<Props> = ({ isOpen, onClose, onSave, fiadoAEdi
                     {prodFiltrados.map(p => (
                       <div 
                         key={p.id} 
-                        onClick={() => agregarProducto(p)}
+                        {...clicConTeclado(() => agregarProducto(p))}
                         className="flex justify-between items-center p-2 border-b border-[#E2E8F0] hover:bg-[#F8FAFC] cursor-pointer group"
                       >
                         <div>

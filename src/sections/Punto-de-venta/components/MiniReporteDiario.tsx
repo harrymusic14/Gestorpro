@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { supabase } from '../../../db/supabase';
 import { Eye, EyeOff, BarChart3, X, Clock, Receipt, Coins, Smartphone, CreditCard, BookOpen, HandCoins } from 'lucide-react';
+import { useCerrarConEscape } from '../../../utils/useCerrarConEscape';
 
 interface Props {
   refreshTrigger: number;
@@ -10,6 +11,7 @@ interface Props {
 export const MiniReporteDiario: React.FC<Props> = ({ refreshTrigger }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  useCerrarConEscape(isModalOpen, () => setIsModalOpen(false)); // Escape (o "Atrás" del control de TV) cierra la ventana
   const [totales, setTotales] = useState({
     efectivo: 0, yape: 0, tarjeta: 0, transferencia: 0, fiado: 0, totalReal: 0
   });
@@ -114,7 +116,7 @@ export const MiniReporteDiario: React.FC<Props> = ({ refreshTrigger }) => {
 
   const modalContent = isModalOpen ? createPortal(
     <div className="fixed inset-0 bg-[#1E293B]/90 backdrop-blur-md z-[999999] flex items-center justify-center p-2 sm:p-8 animate-fade-in font-mono">
-      <div className="bg-white border-4 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] sm:shadow-[16px_16px_0_0_#1E293B] w-full max-w-6xl flex flex-col h-[90dvh] rounded-none">
+      <div className="bg-white border-4 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] sm:shadow-[16px_16px_0_0_#1E293B] w-full max-w-6xl flex flex-col h-[calc(var(--alto-pantalla)*0.9)] rounded-none">
         
         <div className="bg-[#1E293B] text-white p-4 sm:p-6 flex justify-between items-center gap-3 shrink-0">
           <h2 className="font-black uppercase tracking-widest text-sm sm:text-xl flex items-center gap-3">
@@ -188,7 +190,7 @@ export const MiniReporteDiario: React.FC<Props> = ({ refreshTrigger }) => {
 
       </div>
     </div>
-  , document.body) : null;
+  , document.getElementById('root') ?? document.body) : null; // dentro de #root para heredar el zoom de TV
 
   return (
     <>

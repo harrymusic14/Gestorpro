@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Users, Search, Plus, UserCircle, Save, Edit, Trash2, ArrowLeft, ChevronLeft, ChevronRight, Filter, FilterX } from 'lucide-react';
 import type { Cliente, Fiado } from '../types';
+import { useCerrarConEscape } from '../../../utils/useCerrarConEscape';
 
 interface Props {
   isOpen: boolean;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export const ModalClientes: React.FC<Props> = ({ isOpen, onClose, clientes, onSaveCliente, onEditCliente, onDeleteCliente, fiados }) => {
+  useCerrarConEscape(isOpen, onClose); // Escape (o "Atrás" del control de TV) cierra la ventana
   const [view, setView] = useState<'LISTA' | 'NUEVO' | 'HISTORIAL'>('LISTA');
   const [clienteActivo, setClienteActivo] = useState<Cliente | null>(null);
   const [clienteAEditar, setClienteAEditar] = useState<Cliente | null>(null);
@@ -115,7 +117,7 @@ export const ModalClientes: React.FC<Props> = ({ isOpen, onClose, clientes, onSa
 
   return (
     <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 font-mono">
-      <div className="bg-white w-full max-w-4xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col h-[94dvh] sm:h-[85vh]">
+      <div className="bg-white w-full max-w-4xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col h-[calc(var(--alto-pantalla)*0.94)] sm:h-[calc(var(--alto-pantalla)*0.85)]">
         
         {/* HEADER */}
         <div className="bg-[#1E293B] text-white px-4 sm:px-6 py-4 flex justify-between items-center gap-3 shrink-0">
@@ -277,7 +279,7 @@ export const ModalClientes: React.FC<Props> = ({ isOpen, onClose, clientes, onSa
           {/* VISTA NUEVO / EDITAR */}
           {view === 'NUEVO' && (
             <div className="w-full h-full flex flex-col items-center justify-center">
-              <div className="w-full max-w-md bg-white border-2 border-[#E2E8F0] shadow-[8px_8px_0_0_#E2E8F0] p-4 sm:p-6 lg:p-8 flex flex-col gap-5">
+              <div className="w-full max-w-md bg-white border-2 border-[#E2E8F0] shadow-[8px_8px_0_0_#E2E8F0] p-4 sm:p-6 lg:p-8 short:py-4 flex flex-col gap-5">
                 <h3 className="text-center font-black text-lg text-[#1E293B] uppercase tracking-widest border-b-2 border-[#E2E8F0] pb-2 mb-2">
                   {clienteAEditar ? 'Editar Cliente' : 'Nuevo Cliente'}
                 </h3>
@@ -317,7 +319,7 @@ export const ModalClientes: React.FC<Props> = ({ isOpen, onClose, clientes, onSa
               <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 <div className="grid grid-cols-1 gap-3">
                   {fiadosDelCliente.length === 0 ? (
-                    <div className="bg-white border-2 border-[#E2E8F0] p-4 sm:p-6 lg:p-8 text-center">
+                    <div className="bg-white border-2 border-[#E2E8F0] p-4 sm:p-6 lg:p-8 short:py-4 text-center">
                       <p className="text-[#94A3B8] font-black text-sm uppercase">No tiene deudas ni historial registrado.</p>
                     </div>
                   ) : (

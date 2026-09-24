@@ -258,7 +258,7 @@ export const DashboardResumen: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto p-3 sm:p-6 lg:p-8 space-y-8 sm:space-y-10 custom-scrollbar">
+      <div className="flex-1 overflow-auto p-3 sm:p-6 lg:p-8 space-y-8 sm:space-y-10 short:space-y-5 custom-scrollbar">
 
         {/* MÉTRICAS DE ALTO IMPACTO */}
         <section>
@@ -297,7 +297,7 @@ export const DashboardResumen: React.FC = () => {
                  <CreditCard size={18} className="text-[#10B981]"/> Flujo por Método de Pago
                </h3>
             </div>
-            <div className="p-4 sm:p-6 lg:p-8 flex-1 w-full" style={{ minHeight: '350px' }}>
+            <div className="p-4 sm:p-6 lg:p-8 short:py-4 flex-1 w-full" style={{ minHeight: '350px' }}>
               <ResponsiveContainer width="99%" height={350} minWidth={1}>
                 <BarChart data={flujoNeto} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />

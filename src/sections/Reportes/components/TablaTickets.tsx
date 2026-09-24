@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { RotateCcw, Trash2, Receipt, ChevronLeft, ChevronRight, Eye, X } from 'lucide-react';
 import { supabase } from '../../../db/supabase'; 
 import type { TicketVenta } from '../types';
+import { useCerrarConEscape } from '../../../utils/useCerrarConEscape';
+import { clicConTeclado } from '../../../utils/clicConTeclado';
 
 interface Props {
   tickets: TicketVenta[];
@@ -13,6 +15,7 @@ interface Props {
 export const TablaTickets: React.FC<Props> = ({ tickets, onAnular, onDelete }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [ticketSeleccionado, setTicketSeleccionado] = useState<string | null>(null);
+  useCerrarConEscape(ticketSeleccionado !== null, () => setTicketSeleccionado(null)); // Escape (o "Atrás" del control de TV) cierra la ventana
   const [detallesTicket, setDetallesTicket] = useState<any[]>([]);
   const [isLoadingDetalles, setIsLoadingDetalles] = useState(false);
   
@@ -94,7 +97,7 @@ export const TablaTickets: React.FC<Props> = ({ tickets, onAnular, onDelete }) =
             <tbody>
               {tickets.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="p-4 sm:p-6 lg:p-8 text-center text-[#64748B] font-bold text-xs uppercase bg-[#FFFFFF]">
+                  <td colSpan={8} className="p-4 sm:p-6 lg:p-8 short:py-4 text-center text-[#64748B] font-bold text-xs uppercase bg-[#FFFFFF]">
                     No hay tickets registrados en este mes.
                   </td>
                 </tr>
@@ -102,7 +105,7 @@ export const TablaTickets: React.FC<Props> = ({ tickets, onAnular, onDelete }) =
                 currentTickets.map((t) => (
                   <tr
                     key={t.id}
-                    onClick={() => verDetalles(t.id)}
+                    {...clicConTeclado(() => verDetalles(t.id))}
                     className="border-b border-[#E2E8F0] hover:bg-[#F8FAFC] transition-colors cursor-pointer"
                     title="Click para ver detalle del ticket"
                   >
@@ -168,7 +171,7 @@ export const TablaTickets: React.FC<Props> = ({ tickets, onAnular, onDelete }) =
       {/* VENTANA FLOTANTE (MODAL PLATO TÉCNICO) */}
       {ticketSeleccionado && (
         <div className="fixed inset-0 bg-[#1E293B]/40 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
-          <div className="bg-[#FFFFFF] border-2 border-[#1E293B] shadow-[8px_8px_0px_0px_rgba(30,41,59,1)] rounded-none w-full max-w-lg flex flex-col max-h-[94dvh] sm:max-h-[80vh]">
+          <div className="bg-[#FFFFFF] border-2 border-[#1E293B] shadow-[8px_8px_0px_0px_rgba(30,41,59,1)] rounded-none w-full max-w-lg flex flex-col max-h-[calc(var(--alto-pantalla)*0.94)] sm:max-h-[calc(var(--alto-pantalla)*0.8)]">
             <div className="flex justify-between items-center border-b-2 border-[#1E293B] bg-[#F8FAFC] p-4 shrink-0">
               <div>
                 <p className="text-[#64748B] text-[10px] font-mono tracking-widest uppercase mb-1">Inspección Operativa</p>

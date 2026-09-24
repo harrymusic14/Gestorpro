@@ -56,7 +56,7 @@ export const ModalBalanza: React.FC<Props> = ({ isOpen, onClose, product, onConf
 
   return (
     <div className="fixed inset-0 bg-[#1E293B]/90 backdrop-blur-sm z-[99999] flex items-center justify-center p-2 sm:p-4 font-mono">
-      <div className="max-h-[94dvh] overflow-y-auto bg-white w-full max-w-md border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col overflow-hidden">
+      <div className="max-h-[calc(var(--alto-pantalla)*0.94)] overflow-y-auto bg-white w-full max-w-md border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col overflow-hidden">
         
         {/* Cabecera */}
         <div className="bg-[#3B82F6] text-white px-4 py-3 flex items-center justify-between border-b-2 border-[#1E293B]">

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { X, Lock, Calculator, AlertTriangle, Banknote, Smartphone, CreditCard } from 'lucide-react';
 import { supabase } from '../../../db/supabase';
 import type { CashSession, SuperMetricas } from '../types';
+import { useCerrarConEscape } from '../../../utils/useCerrarConEscape';
 
 interface Props {
   isOpen: boolean;
@@ -55,6 +56,7 @@ const BloqueArqueo: React.FC<BloqueArqueoProps> = ({ icono, color, titulo, esper
 };
 
 export const ModalCierre: React.FC<Props> = ({ isOpen, onClose, onSuccess, sessionActiva, superMetricas }) => {
+  useCerrarConEscape(isOpen, onClose); // Escape (o "Atrás" del control de TV) cierra la ventana
   const [montoEfectivo, setMontoEfectivo] = useState('');
   const [montoYape, setMontoYape] = useState('');
   const [montoTarjeta, setMontoTarjeta] = useState('');
@@ -118,7 +120,7 @@ export const ModalCierre: React.FC<Props> = ({ isOpen, onClose, onSuccess, sessi
 
   return (
     <div className="fixed inset-0 bg-[#1E293B]/90 backdrop-blur-md flex items-center justify-center z-[9999] p-2 sm:p-4 font-mono">
-      <div className="bg-white border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] w-full max-w-lg flex flex-col rounded-none animate-fade-in max-h-[94dvh] sm:max-h-[90vh]">
+      <div className="bg-white border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] w-full max-w-lg flex flex-col rounded-none animate-fade-in max-h-[calc(var(--alto-pantalla)*0.94)] sm:max-h-[calc(var(--alto-pantalla)*0.9)]">
 
         <div className="bg-[#EF4444] p-4 border-b-2 border-[#1E293B] flex justify-between items-center text-white shrink-0">
           <h2 className="font-black uppercase tracking-widest flex items-center gap-2 text-sm">

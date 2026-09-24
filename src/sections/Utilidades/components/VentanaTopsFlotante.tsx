@@ -12,7 +12,7 @@ interface Props {
 
 export const VentanaTopsFlotante = ({ tops, onClose }: Props) => {
   return (
-    <div className="fixed bottom-3 left-3 right-3 sm:left-auto sm:bottom-6 sm:right-6 z-50 sm:w-80 max-h-[80dvh] overflow-y-auto bg-white border-2 border-[#065F46] rounded-none shadow-[8px_8px_0px_0px_rgba(6,95,70,1)] p-5 transition-all duration-300">
+    <div className="fixed bottom-3 left-3 right-3 sm:left-auto sm:bottom-6 sm:right-6 z-50 sm:w-80 max-h-[calc(var(--alto-pantalla)*0.8)] overflow-y-auto bg-white border-2 border-[#065F46] rounded-none shadow-[8px_8px_0px_0px_rgba(6,95,70,1)] p-5 transition-all duration-300">
       
       {/* Cabecera Técnica */}
       <div className="flex justify-between items-center border-b-2 border-[#065F46] pb-3 mb-4">

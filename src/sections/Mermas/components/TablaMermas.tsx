@@ -3,6 +3,7 @@ import { Layers, ChevronLeft, ChevronRight, Package, Edit, Trash2 } from 'lucide
 import { formatearCantidad } from '../../../utils/formato';
 import type { Merma } from '../types';
 import type { Product } from '../../Inventario/types';
+import { clicConTeclado } from '../../../utils/clicConTeclado';
 
 interface Props {
   mermas: Merma[];
@@ -79,7 +80,7 @@ export const TablaMermas: React.FC<Props> = ({ mermas, products, onEdit, onDelet
           paginatedData.map((merma, index) => (
             <div
               key={merma.id || `merma-${index}`}
-              onClick={() => onEdit?.(merma)}
+              {...clicConTeclado(() => onEdit?.(merma))}
               className="grid grid-cols-12 gap-3 items-center p-4 border-b border-[#E2E8F0] hover:bg-[#F8FAFC] transition-colors text-sm rounded-none cursor-pointer"
               title="Click para editar"
             >

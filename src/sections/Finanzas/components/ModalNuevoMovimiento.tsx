@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { X, ArrowRightLeft, CheckCircle2 } from 'lucide-react';
 import { supabase } from '../../../db/supabase';
+import { useCerrarConEscape } from '../../../utils/useCerrarConEscape';
 
 interface Props {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const ModalNuevoMovimiento: React.FC<Props> = ({ isOpen, onClose, onSuccess, sessionId }) => {
+  useCerrarConEscape(isOpen, onClose); // Escape (o "Atrás" del control de TV) cierra la ventana
   const [tipo, setTipo] = useState<'INGRESO' | 'EGRESO'>('EGRESO');
   const [monto, setMonto] = useState('');
   const [descripcion, setDescripcion] = useState('');
@@ -52,7 +54,7 @@ export const ModalNuevoMovimiento: React.FC<Props> = ({ isOpen, onClose, onSucce
 
   return (
     <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4 font-mono">
-      <div className="max-h-[94dvh] overflow-y-auto bg-white border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] w-full max-w-md flex flex-col rounded-none animate-fade-in">
+      <div className="max-h-[calc(var(--alto-pantalla)*0.94)] overflow-y-auto bg-white border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] w-full max-w-md flex flex-col rounded-none animate-fade-in">
         
         <div className="bg-[#3B82F6] p-4 border-b-2 border-[#1E293B] flex justify-between items-center text-white">
           <h2 className="font-black uppercase tracking-widest flex items-center gap-2 text-sm">

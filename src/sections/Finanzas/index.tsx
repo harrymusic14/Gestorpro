@@ -309,7 +309,7 @@ export const Finanzas: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex-1 min-h-[420px] sm:min-h-[500px] shrink-0 bg-white border-2 border-[#E2E8F0] shadow-[4px_4px_0_0_#E2E8F0] sm:shadow-[8px_8px_0_0_#E2E8F0] flex flex-col overflow-hidden">
+          <div className="flex-1 min-h-[420px] sm:min-h-[500px] short:min-h-[380px] shrink-0 bg-white border-2 border-[#E2E8F0] shadow-[4px_4px_0_0_#E2E8F0] sm:shadow-[8px_8px_0_0_#E2E8F0] flex flex-col overflow-hidden">
              
              <div className="flex border-b-2 border-[#E2E8F0] bg-[#F8FAFC] shrink-0">
                <button 

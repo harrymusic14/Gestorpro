@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Search, Filter, TrendingDown, TrendingUp, RotateCcw, ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react';
 import type { AnalisisProducto, StatsFiltro } from '../types';
 import { ModalDetalleProducto } from './ModalDetalleProducto';
+import { clicConTeclado } from '../../../utils/clicConTeclado';
 
 interface Props {
   datos: AnalisisProducto[];
@@ -196,12 +197,12 @@ export const TablaAnalisisProductos: React.FC<Props> = ({ datos, fechaInicio, fe
           </thead>
           <tbody className="bg-[#FFFFFF]">
             {datosPaginados.length === 0 ? (
-              <tr><td colSpan={8} className="p-4 sm:p-6 lg:p-8 text-center text-[#64748B] font-bold text-xs uppercase border-b border-[#E2E8F0]">NO SE ENCONTRARON REGISTROS.</td></tr>
+              <tr><td colSpan={8} className="p-4 sm:p-6 lg:p-8 short:py-4 text-center text-[#64748B] font-bold text-xs uppercase border-b border-[#E2E8F0]">NO SE ENCONTRARON REGISTROS.</td></tr>
             ) : (
               datosPaginados.map((prod) => (
                 <tr
                   key={prod.id}
-                  onClick={() => setProductoSeleccionado(prod)}
+                  {...clicConTeclado(() => setProductoSeleccionado(prod))}
                   className="border-b border-[#E2E8F0] hover:bg-[#F8FAFC] transition-colors cursor-pointer"
                   title="Ver ventas de este producto"
                 >

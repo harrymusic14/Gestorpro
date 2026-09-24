@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Save,  Building2 } from 'lucide-react';
 import type { Proveedor } from '../types';
+import { useCerrarConEscape } from '../../../utils/useCerrarConEscape';
 
 interface Props {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const ModalProveedor: React.FC<Props> = ({ isOpen, onClose, onSave, proveedorAEditar, proveedoresExistentes = [] }) => {
+  useCerrarConEscape(isOpen, onClose); // Escape (o "Atrás" del control de TV) cierra la ventana
   const [formData, setFormData] = useState<Partial<Proveedor>>({
     ruc: '',
     razon_social: '',
@@ -77,7 +79,7 @@ export const ModalProveedor: React.FC<Props> = ({ isOpen, onClose, onSave, prove
 
   return (
     <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 font-mono">
-      <div className="bg-white w-full max-w-2xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[94dvh] sm:max-h-[90vh]">
+      <div className="bg-white w-full max-w-2xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[calc(var(--alto-pantalla)*0.94)] sm:max-h-[calc(var(--alto-pantalla)*0.9)]">
         
         {/* HEADER */}
         <div className="bg-[#1E293B] text-white px-6 py-4 flex items-center justify-between shrink-0">

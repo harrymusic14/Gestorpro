@@ -7,7 +7,7 @@ interface Props {
 
 export const HeaderMermas: React.FC<Props> = ({ onNuevaMerma }) => {
   return (
-    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 sm:p-6 lg:p-8 bg-white border-b-2 border-[#1E293B] shrink-0">
+    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 sm:p-6 lg:p-8 short:py-4 bg-white border-b-2 border-[#1E293B] shrink-0">
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 bg-[#FEF2F2] border-2 border-[#EF4444] flex items-center justify-center shadow-[4px_4px_0_0_#EF4444] rounded-none">
           <AlertTriangle size={24} className="text-[#EF4444]" />

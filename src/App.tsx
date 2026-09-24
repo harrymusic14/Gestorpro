@@ -26,7 +26,23 @@ export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   // Escritorio (≥1280px): barra lateral expandida. Tablet horizontal (1024-1279px): contraída a íconos.
   // Tablet vertical/celular (<1024px): oculta como menú deslizable.
-  const [isSidebarOpen, setIsSidebarOpen] = useState(() => window.innerWidth >= 1280);
+  // En PC/laptop se respeta la última elección del usuario (expandida o contraída).
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+    if (window.innerWidth < 1024) return false;
+    try {
+      const guardado = localStorage.getItem('menu_expandido');
+      if (guardado !== null) return guardado === '1';
+    } catch { /* sin acceso a localStorage: usar el valor por defecto */ }
+    return window.innerWidth >= 1280;
+  });
+
+  const toggleSidebar = () => {
+    const nuevo = !isSidebarOpen;
+    setIsSidebarOpen(nuevo);
+    if (window.innerWidth >= 1024) {
+      try { localStorage.setItem('menu_expandido', nuevo ? '1' : '0'); } catch { /* ignorar */ }
+    }
+  };
   
   // Estado para el Enrutador Interno
   const [currentView, setCurrentView] = useState<string>('resumen');
@@ -58,7 +74,7 @@ export const App: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#FFFFFF] flex items-center justify-center">
+      <div className="min-h-[var(--alto-pantalla)] bg-[#FFFFFF] flex items-center justify-center">
         <span className="font-mono text-sm text-[#1E293B] uppercase animate-pulse flex items-center space-x-2">
           <div className="w-2 h-2 bg-[#059669]"></div>
           <span>Inicializando Sistema...</span>
@@ -136,7 +152,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="flex h-dvh w-full bg-[#FFFFFF] overflow-hidden">
+    <div className="flex h-[var(--alto-pantalla)] w-full bg-[#FFFFFF] overflow-hidden">
       <SideBar
         isOpen={isSidebarOpen}
         currentView={currentView}
@@ -147,7 +163,7 @@ export const App: React.FC = () => {
 
       <main className="flex-1 min-w-0 flex flex-col overflow-hidden bg-[#F8FAFC]">
         <TopBar
-          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+          toggleSidebar={toggleSidebar}
           userEmail={session?.user?.email || emailEmpleado || 'EMPLEADO_AUTENTICADO'}
           onNavigate={handleNavigate}
         />

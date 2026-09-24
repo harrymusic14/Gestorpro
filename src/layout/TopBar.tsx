@@ -68,7 +68,7 @@ export const TopBar: React.FC<TopBarProps> = ({ toggleSidebar, userEmail, onNavi
           </svg>
         </button>
         
-        <div className="hidden xl:flex items-center text-xs font-black text-[#94A3B8] uppercase tracking-[0.2em] bg-[#F8FAFC] px-3 py-1.5 border border-[#E2E8F0]">
+        <div className="hidden 2xl:flex items-center text-xs font-black text-[#94A3B8] uppercase tracking-[0.2em] bg-[#F8FAFC] px-3 py-1.5 border border-[#E2E8F0]">
           <span className="text-[#10B981] mr-2">root@evicamp:~#</span>
           <span>SYSTEM_ACTIVE</span>
           <span className="w-1.5 h-3 bg-[#10B981] animate-pulse ml-2 inline-block"></span>

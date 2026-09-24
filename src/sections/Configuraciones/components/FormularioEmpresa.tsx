@@ -109,7 +109,7 @@ export const FormularioEmpresa: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="p-4 sm:p-6 lg:p-8 text-center text-[#64748B] font-mono animate-pulse">Cargando datos...</div>;
+    return <div className="p-4 sm:p-6 lg:p-8 short:py-4 text-center text-[#64748B] font-mono animate-pulse">Cargando datos...</div>;
   }
 
   return (
