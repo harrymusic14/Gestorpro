@@ -75,11 +75,11 @@ export const TablaUsuarios: React.FC = () => {
       {/* TABLA */}
       <div className="overflow-x-auto min-h-[200px]">
         {loading ? (
-          <div className="flex justify-center items-center h-full p-8 text-[#64748B] font-mono gap-2">
+          <div className="flex justify-center items-center h-full p-4 sm:p-6 lg:p-8 text-[#64748B] font-mono gap-2">
             <Loader2 className="animate-spin" size={18} /> Cargando empleados...
           </div>
         ) : usuarios.length === 0 ? (
-          <div className="flex justify-center items-center h-full p-8 text-[#64748B] font-mono">
+          <div className="flex justify-center items-center h-full p-4 sm:p-6 lg:p-8 text-[#64748B] font-mono">
             No hay empleados registrados todavía.
           </div>
         ) : (

@@ -114,11 +114,11 @@ export const ModalClientes: React.FC<Props> = ({ isOpen, onClose, clientes, onSa
   const fiadosDelCliente = clienteActivo ? fiados.filter(f => f.clienteNombre === clienteActivo.nombre) : [];
 
   return (
-    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-mono">
-      <div className="bg-white w-full max-w-4xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col h-[85vh]">
+    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 font-mono">
+      <div className="bg-white w-full max-w-4xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col h-[94dvh] sm:h-[85vh]">
         
         {/* HEADER */}
-        <div className="bg-[#1E293B] text-white px-6 py-4 flex justify-between items-center shrink-0">
+        <div className="bg-[#1E293B] text-white px-4 sm:px-6 py-4 flex justify-between items-center gap-3 shrink-0">
           <div className="flex items-center gap-3">
             <Users className="text-[#3B82F6]" size={20} />
             <h2 className="text-sm font-black uppercase tracking-widest">
@@ -129,16 +129,16 @@ export const ModalClientes: React.FC<Props> = ({ isOpen, onClose, clientes, onSa
         </div>
 
         {/* CONTENIDO DINÁMICO */}
-        <div className="flex-1 bg-[#F8FAFC] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] p-6 flex flex-col">
+        <div className="flex-1 bg-[#F8FAFC] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] p-3 sm:p-6 flex flex-col">
           
           {view === 'LISTA' && (
             <div className="flex flex-col gap-4 h-full">
               
               {/* BARRA DE HERRAMIENTAS: BÚSQUEDA Y FILTROS */}
-              <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 bg-[#FFFFFF] p-4 border-2 border-[#E2E8F0] shrink-0 rounded-none">
-                <div className="flex gap-4 flex-1 w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-3 sm:gap-4 bg-[#FFFFFF] p-3 sm:p-4 border-2 border-[#E2E8F0] shrink-0 rounded-none">
+                <div className="flex flex-wrap gap-2 sm:gap-4 flex-1 w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                   {/* Buscador */}
-                  <div className="relative w-72">
+                  <div className="relative w-full sm:w-72">
                     <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#94A3B8]" />
                     <input 
                       type="text" 
@@ -205,16 +205,16 @@ export const ModalClientes: React.FC<Props> = ({ isOpen, onClose, clientes, onSa
                       const deudaActiva = fiados.filter(f => f.clienteNombre === cli.nombre && f.saldoPendiente > 0).reduce((acc, f) => acc + f.saldoPendiente, 0);
 
                       return (
-                        <div key={cli.id} className="p-4 flex justify-between items-center hover:bg-[#F8FAFC] transition-colors group">
-                          <div className="flex items-center gap-4 w-1/3">
-                            <UserCircle size={32} className="text-[#94A3B8]" />
-                            <div>
+                        <div key={cli.id} className="p-3 sm:p-4 flex flex-wrap sm:flex-nowrap justify-between items-center gap-2 sm:gap-0 hover:bg-[#F8FAFC] transition-colors group">
+                          <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-1/3 min-w-0">
+                            <UserCircle size={32} className="text-[#94A3B8] shrink-0" />
+                            <div className="min-w-0">
                               <p className="font-black text-[#1E293B] uppercase truncate" title={cli.nombre}>{cli.nombre}</p>
                               <p className="text-[10px] font-bold text-[#64748B]">DNI: {cli.dni || '---'} | Cel: {cli.telefono || '---'}</p>
                             </div>
                           </div>
                           
-                          <div className="w-1/3 text-center">
+                          <div className="sm:w-1/3 text-left sm:text-center">
                             {deudaActiva > 0 ? (
                               <span className="inline-block px-3 py-1 bg-[#FEF2F2] text-[#EF4444] text-[10px] font-black uppercase border border-[#EF4444]">
                                 Debe: S/ {deudaActiva.toFixed(2)}
@@ -226,7 +226,7 @@ export const ModalClientes: React.FC<Props> = ({ isOpen, onClose, clientes, onSa
                             )}
                           </div>
 
-                          <div className="flex items-center justify-end gap-2 w-1/3">
+                          <div className="flex items-center justify-end gap-2 sm:w-1/3 ml-auto">
                             <button onClick={() => openEditar(cli)} className="p-2 bg-white text-[#94A3B8] border-2 border-[#E2E8F0] hover:border-[#F59E0B] hover:text-[#F59E0B] transition-colors cursor-pointer" title="Editar Cliente">
                               <Edit size={16} />
                             </button>
@@ -277,7 +277,7 @@ export const ModalClientes: React.FC<Props> = ({ isOpen, onClose, clientes, onSa
           {/* VISTA NUEVO / EDITAR */}
           {view === 'NUEVO' && (
             <div className="w-full h-full flex flex-col items-center justify-center">
-              <div className="w-full max-w-md bg-white border-2 border-[#E2E8F0] shadow-[8px_8px_0_0_#E2E8F0] p-8 flex flex-col gap-5">
+              <div className="w-full max-w-md bg-white border-2 border-[#E2E8F0] shadow-[8px_8px_0_0_#E2E8F0] p-4 sm:p-6 lg:p-8 flex flex-col gap-5">
                 <h3 className="text-center font-black text-lg text-[#1E293B] uppercase tracking-widest border-b-2 border-[#E2E8F0] pb-2 mb-2">
                   {clienteAEditar ? 'Editar Cliente' : 'Nuevo Cliente'}
                 </h3>
@@ -317,7 +317,7 @@ export const ModalClientes: React.FC<Props> = ({ isOpen, onClose, clientes, onSa
               <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 <div className="grid grid-cols-1 gap-3">
                   {fiadosDelCliente.length === 0 ? (
-                    <div className="bg-white border-2 border-[#E2E8F0] p-8 text-center">
+                    <div className="bg-white border-2 border-[#E2E8F0] p-4 sm:p-6 lg:p-8 text-center">
                       <p className="text-[#94A3B8] font-black text-sm uppercase">No tiene deudas ni historial registrado.</p>
                     </div>
                   ) : (

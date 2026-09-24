@@ -285,11 +285,11 @@ export const Reportes: React.FC = () => {
   const totalAnulados = tickets.filter(t => t.estado === 'ANULADO').length;
 
   return (
-    <div className="h-full flex flex-col gap-6 p-6 max-w-7xl mx-auto font-mono">
+    <div className="h-full flex flex-col gap-4 sm:gap-6 p-0 sm:p-2 lg:p-6 max-w-7xl mx-auto font-mono">
       
       {/* TARJETAS DE MÉTRICAS */}
-      <div className="flex gap-4 shrink-0">
-        <div className="flex-1 bg-white border-2 border-[#E2E8F0] shadow-[4px_4px_0_0_#E2E8F0] p-4 flex gap-4 items-center rounded-none">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 shrink-0">
+        <div className="min-w-0 bg-white border-2 border-[#E2E8F0] shadow-[4px_4px_0_0_#E2E8F0] p-3 sm:p-4 flex gap-3 sm:gap-4 items-center rounded-none">
             <div className="w-12 h-12 bg-[#F8FAFC] rounded-none border-2 border-[#E2E8F0] flex items-center justify-center">
               <FileText className="text-[#3B82F6]" />
             </div>
@@ -299,7 +299,7 @@ export const Reportes: React.FC = () => {
             </div>
           </div>
           
-          <div className="flex-1 bg-white border-2 border-[#E2E8F0] shadow-[4px_4px_0_0_#E2E8F0] p-4 flex gap-4 items-center rounded-none">
+          <div className="min-w-0 bg-white border-2 border-[#E2E8F0] shadow-[4px_4px_0_0_#E2E8F0] p-3 sm:p-4 flex gap-3 sm:gap-4 items-center rounded-none">
             <div className="w-12 h-12 bg-[#FEF2F2] rounded-none border-2 border-[#EF4444] flex items-center justify-center">
               <RotateCcw className="text-[#EF4444]" />
             </div>
@@ -314,39 +314,39 @@ export const Reportes: React.FC = () => {
       <div className="flex flex-wrap lg:flex-nowrap justify-between items-end gap-4 shrink-0">
         
         {/* BOTONES RÁPIDOS */}
-        <div className="flex gap-3">
-          <button onClick={filtrarHoy} className="bg-white border-2 border-[#1E293B] px-6 py-3 text-sm font-black uppercase text-[#1E293B] hover:bg-[#1E293B] hover:text-white transition-colors cursor-pointer rounded-none shadow-[4px_4px_0_0_#1E293B] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px]">
+        <div className="grid grid-cols-3 sm:flex gap-2 sm:gap-3 w-full lg:w-auto">
+          <button onClick={filtrarHoy} className="bg-white border-2 border-[#1E293B] px-2 sm:px-6 py-3 text-xs sm:text-sm font-black uppercase text-[#1E293B] hover:bg-[#1E293B] hover:text-white transition-colors cursor-pointer rounded-none shadow-[4px_4px_0_0_#1E293B] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px]">
             Hoy
           </button>
-          <button onClick={filtrarSemana} className="bg-white border-2 border-[#1E293B] px-6 py-3 text-sm font-black uppercase text-[#1E293B] hover:bg-[#1E293B] hover:text-white transition-colors cursor-pointer rounded-none shadow-[4px_4px_0_0_#1E293B] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px]">
+          <button onClick={filtrarSemana} className="bg-white border-2 border-[#1E293B] px-2 sm:px-6 py-3 text-xs sm:text-sm font-black uppercase text-[#1E293B] hover:bg-[#1E293B] hover:text-white transition-colors cursor-pointer rounded-none shadow-[4px_4px_0_0_#1E293B] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px]">
             7 Días
           </button>
-          <button onClick={filtrarMes} className="bg-white border-2 border-[#1E293B] px-6 py-3 text-sm font-black uppercase text-[#1E293B] hover:bg-[#1E293B] hover:text-white transition-colors cursor-pointer rounded-none shadow-[4px_4px_0_0_#1E293B] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px]">
+          <button onClick={filtrarMes} className="bg-white border-2 border-[#1E293B] px-2 sm:px-6 py-3 text-xs sm:text-sm font-black uppercase text-[#1E293B] hover:bg-[#1E293B] hover:text-white transition-colors cursor-pointer rounded-none shadow-[4px_4px_0_0_#1E293B] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px]">
             Mes
           </button>
         </div>
 
         {/* SELECTOR DE FECHAS PERSONALIZADO */}
-        <div className="flex items-center gap-6 bg-white border-2 border-[#E2E8F0] p-4 shadow-[4px_4px_0_0_#E2E8F0] rounded-none">
-          <div className="flex flex-col">
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-6 bg-white border-2 border-[#E2E8F0] p-3 sm:p-4 shadow-[4px_4px_0_0_#E2E8F0] rounded-none w-full lg:w-auto">
+          <div className="flex flex-col flex-1 min-w-[130px]">
             <label className="text-xs font-black text-[#64748B] uppercase tracking-widest mb-1">Desde</label>
             <div className="flex items-center gap-2">
               <CalendarDays size={18} className="text-[#94A3B8]" />
-              <input type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} className="text-base font-black text-[#1E293B] outline-none bg-transparent uppercase cursor-pointer" />
+              <input type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} className="w-full min-w-0 text-sm sm:text-base font-black text-[#1E293B] outline-none bg-transparent uppercase cursor-pointer" />
             </div>
           </div>
-          <div className="w-[2px] h-10 bg-[#E2E8F0]"></div>
-          <div className="flex flex-col">
+          <div className="hidden sm:block w-[2px] h-10 bg-[#E2E8F0]"></div>
+          <div className="flex flex-col flex-1 min-w-[130px]">
             <label className="text-xs font-black text-[#64748B] uppercase tracking-widest mb-1">Hasta</label>
             <div className="flex items-center gap-2">
               <Calendar size={18} className="text-[#94A3B8]" />
-              <input type="date" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} className="text-base font-black text-[#1E293B] outline-none bg-transparent uppercase cursor-pointer" />
+              <input type="date" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} className="w-full min-w-0 text-sm sm:text-base font-black text-[#1E293B] outline-none bg-transparent uppercase cursor-pointer" />
             </div>
           </div>
           
           {/* BOTÓN LIMPIAR */}
           {(fechaInicio || fechaFin) && (
-             <div className="pl-4 ml-2 border-l-2 border-[#E2E8F0]">
+             <div className="sm:pl-4 sm:ml-2 sm:border-l-2 border-[#E2E8F0]">
                <button onClick={limpiarFiltros} className="text-[#EF4444] hover:bg-[#FEF2F2] p-2 transition-colors cursor-pointer rounded-none" title="Limpiar Filtros">
                  <RotateCcw size={16} />
                </button>

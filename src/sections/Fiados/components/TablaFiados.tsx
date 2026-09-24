@@ -145,7 +145,7 @@ export const TablaFiados: React.FC<Props> = ({ fiados, onView, onEdit, onPay, on
           <tbody>
             {currentFiados.length === 0 ? (
               <tr>
-                <td colSpan={7} className="p-8 text-center text-[#94A3B8] font-bold text-xs uppercase bg-white">
+                <td colSpan={7} className="p-4 sm:p-6 lg:p-8 text-center text-[#94A3B8] font-bold text-xs uppercase bg-white">
                   No se encontraron deudas
                 </td>
               </tr>

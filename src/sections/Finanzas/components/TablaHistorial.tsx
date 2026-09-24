@@ -70,7 +70,7 @@ export const TablaHistorial: React.FC<Props> = ({ historialCajas, paginaActual, 
           <tbody>
             {historialCajas.length === 0 ? (
               <tr>
-                <td colSpan={6} className="p-8 text-center text-[#64748B] text-xs font-bold uppercase tracking-widest border-b-2 border-[#E2E8F0]">
+                <td colSpan={6} className="p-4 sm:p-6 lg:p-8 text-center text-[#64748B] text-xs font-bold uppercase tracking-widest border-b-2 border-[#E2E8F0]">
                   No se encontraron registros para estas fechas.
                 </td>
               </tr>

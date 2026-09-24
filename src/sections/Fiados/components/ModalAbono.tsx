@@ -76,8 +76,8 @@ export const ModalAbono: React.FC<Props> = ({ isOpen, onClose, onConfirm, fiado 
   };
 
   return (
-    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-mono">
-      <div className="bg-white w-full max-w-md border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col rounded-none">
+    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 font-mono">
+      <div className="max-h-[94dvh] overflow-y-auto bg-white w-full max-w-md border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col rounded-none">
         
         {/* HEADER */}
         <div className="bg-[#10B981] text-[#1E293B] px-6 py-4 flex justify-between items-center shrink-0 border-b-2 border-[#1E293B]">
@@ -91,7 +91,7 @@ export const ModalAbono: React.FC<Props> = ({ isOpen, onClose, onConfirm, fiado 
         <div className="p-6 bg-[#F8FAFC] flex flex-col gap-4">
           <div className="bg-[#1E293B] text-white p-4 text-center border-2 border-[#1E293B] rounded-none">
             <p className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest">Saldo Actual de la Deuda</p>
-            <p className="text-3xl font-black text-[#EF4444]">S/ {saldoPendiente.toFixed(2)}</p>
+            <p className="text-xl sm:text-3xl font-black text-[#EF4444]">S/ {saldoPendiente.toFixed(2)}</p>
             <p className="text-[10px] font-bold uppercase mt-1">Cliente: {fiado.clienteNombre}</p>
           </div>
 

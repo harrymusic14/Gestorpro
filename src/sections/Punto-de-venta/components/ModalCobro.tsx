@@ -149,8 +149,8 @@ interface Props {
   };
 
   return (
-    <div className="fixed inset-0 bg-[#1E293B]/90 backdrop-blur-sm z-[99999] flex items-start justify-center pt-17 pb-4 px-4 font-mono">
-      <div className="bg-white w-full max-w-md border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 bg-[#1E293B]/90 backdrop-blur-sm z-[99999] flex items-start justify-center pt-2 sm:pt-17 pb-2 sm:pb-4 px-2 sm:px-4 font-mono">
+      <div className="bg-white w-full max-w-md border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[94dvh] sm:max-h-[90vh]">
         
         <div className="bg-[#10B981] text-[#1E293B] px-4 py-3 flex items-center justify-between border-b-2 border-[#1E293B] shrink-0">
           <h2 className="text-lg font-black uppercase tracking-widest flex items-center gap-2">
@@ -165,7 +165,7 @@ interface Props {
           
           <div className="bg-[#1E293B] text-white p-4 text-center border-2 border-[#1E293B] shadow-inner relative shrink-0">
             <p className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-[0.2em] mb-1">Total a Pagar</p>
-            <p className="text-4xl font-black text-[#10B981]">S/ {total.toFixed(2)}</p>
+            <p className="text-2xl sm:text-4xl font-black text-[#10B981]">S/ {total.toFixed(2)}</p>
           </div>
 
           <div className="flex gap-2 shrink-0">

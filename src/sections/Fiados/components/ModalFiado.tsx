@@ -240,10 +240,10 @@ export const ModalFiado: React.FC<Props> = ({ isOpen, onClose, onSave, fiadoAEdi
   const isEdit = !!fiadoAEditar;
 
   return (
-    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 font-mono">
-      <div className="bg-white w-full max-w-4xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col h-[85vh]">
+    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-2 sm:p-4 font-mono">
+      <div className="bg-white w-full max-w-4xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col h-[94dvh] sm:h-[85vh]">
         
-        <div className="bg-[#1E293B] text-white px-6 py-4 flex justify-between items-center shrink-0">
+        <div className="bg-[#1E293B] text-white px-4 sm:px-6 py-4 flex justify-between items-center gap-3 shrink-0">
           <div className="flex items-center gap-3">
             <UserPlus className="text-[#F59E0B]" size={20} />
             <h2 className="text-sm font-black uppercase tracking-widest text-white">
@@ -253,9 +253,9 @@ export const ModalFiado: React.FC<Props> = ({ isOpen, onClose, onSave, fiadoAEdi
           <button onClick={onClose} className="hover:text-[#EF4444] transition-colors"><X size={20} /></button>
         </div>
 
-        <div className="flex flex-1 min-h-0">
+        <div className="flex flex-col md:flex-row flex-1 min-h-0 overflow-y-auto md:overflow-visible">
           {/* PANEL IZQUIERDO: CLIENTE Y PRODUCTOS */}
-          <div className="w-1/2 p-6 bg-[#F8FAFC] border-r-2 border-[#E2E8F0] flex flex-col gap-4 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="w-full md:w-1/2 p-4 sm:p-6 bg-[#F8FAFC] border-b-2 md:border-b-0 md:border-r-2 border-[#E2E8F0] flex flex-col gap-4 shrink-0 md:shrink md:overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             
             <div className="space-y-1 relative">
               <label className="text-[10px] font-black uppercase text-[#64748B]">Seleccionar Cliente *</label>
@@ -363,7 +363,7 @@ export const ModalFiado: React.FC<Props> = ({ isOpen, onClose, onSave, fiadoAEdi
           </div>
 
           {/* PANEL DERECHO: CARRITO / DETALLE DE LA DEUDA */}
-          <div className="w-1/2 p-6 bg-white flex flex-col">
+          <div className="w-full md:w-1/2 p-4 sm:p-6 bg-white flex flex-col min-h-[360px] md:min-h-0">
             <div className="flex flex-col mb-4 border-b-2 border-[#E2E8F0] pb-2">
               <h3 className="text-[10px] font-black uppercase tracking-widest text-[#1E293B]">
                 {isEdit ? 'Detalle de la deuda (Solo Lectura)' : 'Productos a fiar'}

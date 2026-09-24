@@ -9,7 +9,7 @@ interface Props {
 
 export const HeaderInventario: React.FC<Props> = ({ onIngresoStock, onNuevoSKU, onRegistrarMerma }) => {
   return (
-    <div className="bg-white border-b border-[#E2E8F0] p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 rounded-none relative shrink-0">
+    <div className="bg-white border-b border-[#E2E8F0] p-4 sm:p-6 lg:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 rounded-none relative shrink-0">
       <div>
         <h1 className="text-2xl font-black uppercase tracking-tighter text-[#1E293B] flex items-center gap-3">
           <Package size={24} className="text-[#10B981]"/> Catálogo de Existencias
@@ -20,7 +20,7 @@ export const HeaderInventario: React.FC<Props> = ({ onIngresoStock, onNuevoSKU, 
       </div>
       
       {/* PANEL DE ACCIONES RÁPIDAS */}
-      <div className="flex flex-wrap gap-4">
+      <div className="grid grid-cols-1 sm:flex sm:flex-wrap gap-3 sm:gap-4 w-full md:w-auto">
         
         {/* 1. NUEVO PRODUCTO */}
         <button 

@@ -16,6 +16,8 @@ import { MiniReporteDiario } from './components/MiniReporteDiario'; // 🛡️ E
 
 export const POS: React.FC = () => {
   const [hasOpenSession, setHasOpenSession] = useState<boolean | null>(null);
+  // En tablet/celular se muestra un panel a la vez: catálogo de productos o ticket de venta
+  const [vistaMovil, setVistaMovil] = useState<'productos' | 'ticket'>('productos');
 const [searchQuery, setSearchQuery] = useState('');
   
   // 🚀 MEMORIA PERSISTENTE: Cargar carrito desde el navegador
@@ -522,24 +524,46 @@ const [searchQuery, setSearchQuery] = useState('');
           setSelectedIndex(-1);
         }
       }}
-      className={`flex h-full w-full bg-transparent font-mono gap-6 relative z-0 ${hasOpenSession === false ? 'pt-16' : ''}`}
+      className={`flex flex-col lg:flex-row h-full w-full bg-transparent font-mono gap-3 lg:gap-6 relative ${hasOpenSession === false ? 'pt-20 sm:pt-16' : ''}`}
     >
       
       {/* BARRA DE ADVERTENCIA - MODO CONSULTA */}
       {hasOpenSession === false && (
-        <div className="absolute top-0 left-0 w-full bg-[#EF4444] text-white p-3 flex justify-center items-center gap-2 font-black text-xs uppercase tracking-[0.2em] z-50 shadow-[0_4px_0_0_#1E293B] border-b-2 border-[#1E293B]">
+        <div className="absolute top-0 left-0 w-full bg-[#EF4444] text-white p-3 flex justify-center items-center text-center gap-2 font-black text-[10px] sm:text-xs uppercase tracking-widest sm:tracking-[0.2em] z-10 shadow-[0_4px_0_0_#1E293B] border-b-2 border-[#1E293B]">
           <Wallet size={16} /> Caja Cerrada: Modo de solo consulta. Ve a Finanzas para aperturar la caja.
         </div>
       )}
-      <TerminalBusqueda 
-        searchQuery={searchQuery} 
-        setSearchQuery={setSearchQuery} 
-        productos={productos}
-        onAddToCart={handleAddToCart}
-      />
+      {/* SELECTOR DE PANEL (solo tablet/celular) */}
+      <div className="lg:hidden grid grid-cols-2 border-2 border-[#1E293B] bg-white shrink-0">
+        <button
+          onClick={() => setVistaMovil('productos')}
+          className={`py-3 text-xs font-black uppercase tracking-widest cursor-pointer transition-colors ${vistaMovil === 'productos' ? 'bg-[#1E293B] text-white' : 'text-[#64748B]'}`}
+        >
+          Productos
+        </button>
+        <button
+          onClick={() => setVistaMovil('ticket')}
+          className={`py-3 text-xs font-black uppercase tracking-widest cursor-pointer transition-colors flex items-center justify-center gap-2 ${vistaMovil === 'ticket' ? 'bg-[#1E293B] text-white' : 'text-[#64748B]'}`}
+        >
+          Ticket
+          <span className={`min-w-6 px-1.5 py-0.5 text-[10px] ${cart.length > 0 ? 'bg-[#10B981] text-[#1E293B]' : 'bg-[#E2E8F0] text-[#64748B]'}`}>
+            {cart.length}
+          </span>
+          <span className="text-[#10B981]">S/ {cart.reduce((acc, item) => acc + item.subtotal, 0).toFixed(2)}</span>
+        </button>
+      </div>
+
+      <div className={`${vistaMovil === 'productos' ? 'flex' : 'hidden'} lg:flex flex-1 min-w-0 min-h-0`}>
+        <TerminalBusqueda 
+          searchQuery={searchQuery} 
+          setSearchQuery={setSearchQuery} 
+          productos={productos}
+          onAddToCart={handleAddToCart}
+        />
+      </div>
       
       {/* 🛡️ CONTENEDOR DERECHO EVICAMP: MINI REPORTE + CAJA ALINEADA */}
-      <div className="flex flex-col h-full gap-4 shrink-0 z-10 relative w-full lg:w-[420px] min-h-0">
+      <div className={`${vistaMovil === 'ticket' ? 'flex' : 'hidden'} lg:flex flex-col flex-1 lg:flex-none lg:h-full gap-3 lg:gap-4 shrink-0 z-10 relative w-full lg:w-[380px] xl:w-[420px] min-h-0`}>
         <MiniReporteDiario refreshTrigger={refreshReport} />
         
         {/* 🛡️ GEOMETRÍA PERFECTA: Flex-1 y min-h-0 hacen que se estire exactamente al ras del panel izquierdo */}
@@ -588,8 +612,8 @@ const [searchQuery, setSearchQuery] = useState('');
       />
       {/* VISTA PREVIA DEL TICKET (NUEVO MODAL) */}
       {isVistaPreviaOpen && ultimaVenta && (
-        <div className="fixed inset-0 bg-[#1E293B]/90 backdrop-blur-sm z-[99999] flex items-center justify-center p-4">
-          <div className="bg-white border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[95vh] w-full max-w-md animate-fade-in">
+        <div className="fixed inset-0 bg-[#1E293B]/90 backdrop-blur-sm z-[99999] flex items-center justify-center p-2 sm:p-4">
+          <div className="bg-white border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[94dvh] sm:max-h-[95vh] w-full max-w-md animate-fade-in">
             
             {/* CABECERA */}
             <div className="bg-[#3B82F6] text-white p-4 flex justify-between items-center border-b-2 border-[#1E293B] shrink-0">
@@ -604,7 +628,7 @@ const [searchQuery, setSearchQuery] = useState('');
             {/* CONTENEDOR DEL TICKET (Fondo gris y zoom automático) */}
             <div className="flex-1 overflow-y-auto p-6 bg-[#F8FAFC] flex justify-center custom-scrollbar">
               {/* Le aplicamos un scale-110 para que en la PC se vea un poco más grande y nítido */}
-              <div className="transform scale-110 origin-top pb-10">
+              <div className="transform sm:scale-110 origin-top pb-10">
                 <TicketImprimible
                   ref={componentRef}
                   cart={ultimaVenta.cart}

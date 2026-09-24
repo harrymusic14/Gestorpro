@@ -292,8 +292,8 @@ export const ModalMerma: React.FC<Props> = ({ isOpen, onClose, productos, onProd
   };
 
   return (
-    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-mono">
-      <div className="bg-white w-full max-w-lg border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] relative flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 font-mono">
+      <div className="bg-white w-full max-w-lg border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] relative flex flex-col max-h-[94dvh] sm:max-h-[90vh]">
         
         {/* HEADER */}
         <div className={`${isEdit ? 'bg-[#F59E0B]' : 'bg-[#EF4444]'} text-white px-6 py-4 flex items-center justify-between border-b-2 border-[#1E293B] shrink-0`}>

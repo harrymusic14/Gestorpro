@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   LayoutDashboard, ShoppingCart, Users, Package, 
   Truck, Trash2, Wallet, 
-  FileText, Settings, BarChart3 
+  FileText, Settings, BarChart3, X
 } from 'lucide-react';
 
 // IMPORTAMOS EL LOGO Y SUPABASE
@@ -14,10 +14,11 @@ interface SideBarProps {
   isOpen: boolean;
   currentView: string;
   onNavigate: (view: string) => void;
+  onClose: () => void; // Cierra el menú deslizable en tablet/celular
   permisos?: any; // <--- AÑADIMOS LOS PERMISOS
 }
 
-export const SideBar: React.FC<SideBarProps> = ({ isOpen, currentView, onNavigate, permisos }) => {
+export const SideBar: React.FC<SideBarProps> = ({ isOpen, currentView, onNavigate, onClose, permisos }) => {
   const [empresaData, setEmpresaData] = useState({ nombre: 'EVICAMP', logo: logoEvicamp });
 
   useEffect(() => {
@@ -95,7 +96,14 @@ export const SideBar: React.FC<SideBarProps> = ({ isOpen, currentView, onNavigat
     .filter(group => group.items.length > 0);
 
   return (
-    <aside className={`${isOpen ? 'w-64' : 'w-20'} border-r border-[#E2E8F0] bg-white flex flex-col h-full shrink-0 transition-[width] duration-150 ease-out font-mono relative z-20 overflow-hidden`}>
+    <>
+    {/* FONDO OSCURO: solo en tablet/celular cuando el menú está abierto; al tocarlo se cierra */}
+    {isOpen && (
+      <div className="fixed inset-0 bg-[#1E293B]/60 z-30 lg:hidden" onClick={onClose} aria-hidden="true"></div>
+    )}
+
+    {/* En tablet/celular el menú es un panel deslizable sobre el contenido; en escritorio es una columna fija que se expande o contrae */}
+    <aside className={`fixed inset-y-0 left-0 z-40 w-72 max-w-[85vw] ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-200 ease-out lg:relative lg:max-w-none lg:translate-x-0 lg:z-20 lg:transition-[width] lg:duration-150 ${isOpen ? 'lg:w-64' : 'lg:w-20'} border-r border-[#E2E8F0] bg-white flex flex-col h-full shrink-0 font-mono overflow-hidden`}>
       
       {/* LÍNEA DE TENSIÓN LATERAL VERDE ESTÁTICA */}
       <div className="absolute top-0 left-0 w-1 h-full bg-[#10B981]"></div>
@@ -119,7 +127,16 @@ export const SideBar: React.FC<SideBarProps> = ({ isOpen, currentView, onNavigat
           </div>
         )}
         
-        {isOpen && <div className="w-2 h-2 bg-[#10B981] animate-pulse shrink-0 ml-2"></div>}
+        {isOpen && <div className="hidden lg:block w-2 h-2 bg-[#10B981] animate-pulse shrink-0 ml-2"></div>}
+        {isOpen && (
+          <button
+            onClick={onClose}
+            aria-label="Cerrar menú"
+            className="lg:hidden p-2 -mr-1 text-white hover:text-[#10B981] cursor-pointer shrink-0"
+          >
+            <X size={20} />
+          </button>
+        )}
       </div>
 
       {/* NAVIGATION MENU */}
@@ -184,5 +201,6 @@ export const SideBar: React.FC<SideBarProps> = ({ isOpen, currentView, onNavigat
         </div>
       </div>
     </aside>
+    </>
   );
 };

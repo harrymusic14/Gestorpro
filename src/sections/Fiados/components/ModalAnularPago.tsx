@@ -13,8 +13,8 @@ export const ModalAnularPago: React.FC<Props> = ({ isOpen, onClose, fiado, onAnu
   if (!isOpen || !fiado) return null;
 
   return (
-    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 font-mono">
-      <div className="bg-white w-full max-w-md border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[80vh]">
+    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-2 sm:p-4 font-mono">
+      <div className="bg-white w-full max-w-md border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[94dvh] sm:max-h-[80vh]">
         
         {/* HEADER */}
         <div className="bg-[#1E293B] text-white px-6 py-4 flex justify-between items-center shrink-0">

@@ -20,8 +20,8 @@ export const ModalDetalleProducto: React.FC<Props> = ({ producto, onClose }) => 
   const ventas = producto.ventasDetalle || [];
 
   return (
-    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 font-mono">
-      <div className="bg-white border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] w-full max-w-3xl max-h-[85vh] flex flex-col rounded-none">
+    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4 font-mono">
+      <div className="bg-white border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] w-full max-w-3xl max-h-[94dvh] sm:max-h-[85vh] flex flex-col rounded-none">
 
         {/* CABECERA */}
         <div className="flex justify-between items-center border-b-2 border-[#1E293B] p-4 bg-[#F8FAFC] shrink-0">

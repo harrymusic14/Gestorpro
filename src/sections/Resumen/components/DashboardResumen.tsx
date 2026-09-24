@@ -210,12 +210,12 @@ export const DashboardResumen: React.FC = () => {
   if (loading) return (
     <div className="flex flex-col items-center justify-center h-full bg-white">
       <Loader2 className="animate-spin text-[#10B981]" size={48} />
-      <p className="font-mono text-[#1E293B] text-xs tracking-[0.4em] uppercase mt-6 animate-pulse text-center">Iniciando Motor de Reportes...</p>
+      <p className="font-mono text-[#1E293B] text-xs tracking-widest sm:tracking-[0.4em] uppercase mt-6 animate-pulse text-center">Iniciando Motor de Reportes...</p>
     </div>
   );
 
   if (error) return (
-    <div className="flex flex-col items-center justify-center h-full bg-white p-10 border-2 border-[#1E293B]">
+    <div className="flex flex-col items-center justify-center h-full bg-white p-5 sm:p-10 border-2 border-[#1E293B]">
       <AlertCircle className="text-red-600 mb-4" size={64} />
       <h2 className="text-2xl font-black text-[#1E293B] uppercase tracking-tighter">Falla de Integridad SQL</h2>
       <p className="font-mono text-[#64748B] mt-2 text-center text-sm">{error}</p>
@@ -226,23 +226,23 @@ export const DashboardResumen: React.FC = () => {
   return (
     <div className="flex flex-col h-full bg-white rounded-none border-l border-[#E2E8F0]">
       {/* HEADER TÉCNICO - CONTRASTE MEDIO */}
-      <div className="bg-white border-b-2 border-[#1E293B] p-6 shrink-0 flex justify-between items-center z-10 rounded-none">
-        <div>
-          <h1 className="text-3xl font-black text-[#1E293B] tracking-tight flex items-center gap-4 uppercase">
-            <LayoutDashboard className="text-[#10B981]" size={32} />
+      <div className="bg-white border-b-2 border-[#1E293B] p-4 sm:p-6 shrink-0 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 z-10 rounded-none">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-3xl font-black text-[#1E293B] tracking-tight flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-1 uppercase">
+            <LayoutDashboard className="text-[#10B981] w-6 h-6 sm:w-8 sm:h-8" />
             Resumen <span className="text-[#10B981]">Operativo</span>
           </h1>
-          <p className="text-[#64748B] text-[10px] mt-1 font-mono uppercase tracking-[0.4em] font-bold">Consolidado Real de Mermas y Finanzas</p>
+          <p className="text-[#64748B] text-[10px] mt-1 font-mono uppercase tracking-widest sm:tracking-[0.4em] font-bold">Consolidado Real de Mermas y Finanzas</p>
         </div>
         
-        <div className="hidden md:flex flex-col items-end gap-3">
-            <div className="hidden md:flex flex-col items-end gap-3">
-            <div className="flex border border-[#1E293B] bg-white rounded-none shadow-[2px_2px_0px_0px_#1E293B]">
+        <div className="flex flex-col items-stretch md:items-end gap-3 w-full md:w-auto">
+            <div className="flex flex-col items-stretch md:items-end gap-3">
+            <div className="grid grid-cols-3 md:flex border border-[#1E293B] bg-white rounded-none shadow-[2px_2px_0px_0px_#1E293B]">
               {(['HOY', 'SEMANA', 'MES'] as const).map((p) => (
                 <button
                   key={p}
                   onClick={() => setPeriodo(p)}
-                  className={`px-4 py-1.5 font-mono text-[10px] font-black uppercase tracking-widest transition-colors ${
+                  className={`px-4 py-2 md:py-1.5 font-mono text-[10px] cursor-pointer font-black uppercase tracking-widest transition-colors ${
                     periodo === p ? 'bg-[#1E293B] text-[#10B981]' : 'text-[#64748B] hover:bg-[#F8FAFC] hover:text-[#1E293B]'
                   } ${p !== 'MES' ? 'border-r border-[#1E293B]' : ''}`}
                 >
@@ -250,7 +250,7 @@ export const DashboardResumen: React.FC = () => {
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-3 border border-[#1E293B] bg-white px-5 py-2 font-mono text-[11px] font-black uppercase tracking-widest text-[#10B981] rounded-none shadow-[2px_2px_0px_0px_#10B981]">
+            <div className="hidden md:flex items-center gap-3 border border-[#1E293B] bg-white px-5 py-2 font-mono text-[11px] font-black uppercase tracking-widest text-[#10B981] rounded-none shadow-[2px_2px_0px_0px_#10B981]">
                 <div className="w-2.5 h-2.5 bg-[#10B981] animate-pulse"></div>
                 Conexión Estable
             </div>
@@ -258,14 +258,14 @@ export const DashboardResumen: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto p-8 space-y-10 custom-scrollbar">
+      <div className="flex-1 overflow-auto p-3 sm:p-6 lg:p-8 space-y-8 sm:space-y-10 custom-scrollbar">
 
         {/* MÉTRICAS DE ALTO IMPACTO */}
         <section>
-          <h2 className="text-[12px] font-black text-[#1E293B] uppercase tracking-[0.3em] mb-5 flex items-center gap-4">
+          <h2 className="text-[12px] font-black text-[#1E293B] uppercase tracking-widest sm:tracking-[0.3em] mb-5 flex items-center gap-4">
             <div className="w-3 h-5 bg-[#10B981]"></div> Balance Financiero
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             <TarjetaMetrica titulo="Ventas Netas" valor={fSoles(metricas.ventasBrutas)} icono={DollarSign} colorIcono="text-[#10B981]" bgIcono="bg-[#D1FAE5]" esPositivo={true} />
             <TarjetaMetrica titulo="Ganancia Real" valor={fSoles(metricas.utilidadReal)} icono={TrendingUp} colorIcono="text-[#10B981]" bgIcono="bg-[#D1FAE5]" esPositivo={metricas.utilidadReal > 0} />
             <TarjetaMetrica titulo="Inversión en Costo" valor={fSoles(metricas.costoVenta)} icono={ShoppingCart} colorIcono="text-[#1E293B]" bgIcono="bg-[#F1F5F9]" />
@@ -275,10 +275,10 @@ export const DashboardResumen: React.FC = () => {
 
         {/* CONTROL DE ACTIVOS */}
         <section>
-          <h2 className="text-[12px] font-black text-[#1E293B] uppercase tracking-[0.3em] mb-5 flex items-center gap-4">
+          <h2 className="text-[12px] font-black text-[#1E293B] uppercase tracking-widest sm:tracking-[0.3em] mb-5 flex items-center gap-4">
             <div className="w-3 h-5 bg-[#1E293B]"></div> Inventario y Mermas
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6">
             <TarjetaMetrica titulo="Valorización Total" valor={fSoles(metricas.valorizacionInventario)} icono={Package} colorIcono="text-[#1E293B]" bgIcono="bg-[#F1F5F9]" />
             <TarjetaMetrica titulo="Stock Unidades" valor={String(Math.round(metricas.unidadesTotales))} icono={Hash} colorIcono="text-[#1E293B]" bgIcono="bg-[#F1F5F9]" />
             <TarjetaMetrica titulo="Stock Kilos" valor={`${metricas.kilosTotales.toFixed(2)} KG`} icono={Hash} colorIcono="text-[#1E293B]" bgIcono="bg-[#F1F5F9]" />
@@ -288,7 +288,7 @@ export const DashboardResumen: React.FC = () => {
         </section>
 
         {/* ÁREA ANALÍTICA */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8 pb-12">
           
           {/* GRÁFICA DE FLUJO MANTENIDA CON BORDES SUAVIZADOS */}
           <div className="lg:col-span-2 bg-white border-2 border-[#1E293B] flex flex-col rounded-none shadow-[4px_4px_0px_0px_#10B981] transition-shadow hover:shadow-[6px_6px_0px_0px_#10B981]">
@@ -297,7 +297,7 @@ export const DashboardResumen: React.FC = () => {
                  <CreditCard size={18} className="text-[#10B981]"/> Flujo por Método de Pago
                </h3>
             </div>
-            <div className="p-8 flex-1 w-full" style={{ minHeight: '350px' }}>
+            <div className="p-4 sm:p-6 lg:p-8 flex-1 w-full" style={{ minHeight: '350px' }}>
               <ResponsiveContainer width="99%" height={350} minWidth={1}>
                 <BarChart data={flujoNeto} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />

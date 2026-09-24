@@ -121,11 +121,11 @@ export const TicketVenta: React.FC<Props> = ({ selectedIndex = -1, colIndex = 0,
           setSelectedIndex(-1); // 🛡️ DESELECCIÓN AL CLIC EN EL FONDO
         }
       }}
-      className="w-full h-full flex flex-col bg-white border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] shrink-0 relative overflow-hidden"
+      className="w-full h-full flex flex-col bg-white border-2 border-[#1E293B] shadow-[4px_4px_0_0_#1E293B] lg:shadow-[8px_8px_0_0_#1E293B] shrink-0 relative overflow-hidden"
     >
       
       {/* ENCABEZADO TICKET CON BOTÓN DE PAUSAR */}
-      <div className="bg-[#1E293B] text-white p-5 flex items-center justify-between shrink-0 border-b-2 border-[#1E293B]">
+      <div className="bg-[#1E293B] text-white p-3 sm:p-5 flex items-center justify-between shrink-0 border-b-2 border-[#1E293B]">
         <div className="flex flex-col">
           <h2 className="text-sm font-black uppercase tracking-widest flex items-center gap-2 text-[#10B981]">
             <ShoppingCart size={18} /> Caja Actual
@@ -167,7 +167,7 @@ export const TicketVenta: React.FC<Props> = ({ selectedIndex = -1, colIndex = 0,
       )}
 
       {/* LISTA DE ITEMS DEL TICKET */}
-      <div className="flex-1 overflow-y-auto custom-scrollbar bg-white p-4 flex flex-col relative border-b-2 border-[#1E293B]">
+      <div className="flex-1 overflow-y-auto custom-scrollbar bg-white p-2 sm:p-4 flex flex-col relative border-b-2 border-[#1E293B]">
         <div className="grid grid-cols-12 gap-2 text-xs font-black text-[#64748B] uppercase tracking-widest border-b-2 border-[#E2E8F0] pb-2 mb-2">
           <div className="col-span-3 text-center">Cant.</div>
           <div className="col-span-5">Descripción</div>
@@ -260,11 +260,11 @@ export const TicketVenta: React.FC<Props> = ({ selectedIndex = -1, colIndex = 0,
       </div>
 
       {/* ZONA DE COBRO CON MATEMÁTICAS REALES (MODIFICADA) */}
-      <div className="bg-[#F8FAFC] shrink-0 p-4 flex flex-col gap-2">
+      <div className="bg-[#F8FAFC] shrink-0 p-3 sm:p-4 flex flex-col gap-2">
 
         <div className="flex justify-between items-end mt-0">
           <span className="text-xs font-black uppercase tracking-[0.1em] text-[#1E293B]">TOTAL A COBRAR</span>
-          <span className="text-4xl font-black text-[#10B981] tracking-tighter leading-none">
+          <span className="text-xl sm:text-3xl sm:text-4xl font-black text-[#10B981] tracking-tighter leading-none">
             <span className="text-xl">S/</span> {total.toFixed(2)}
           </span>
         </div>

@@ -222,8 +222,8 @@ export const ModalLote: React.FC<Props> = ({ isOpen, onClose, productos, initial
   };
 
   return (
-    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-mono">
-      <div className="bg-white w-full max-w-2xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[75vh] mt-10">
+    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 font-mono">
+      <div className="bg-white w-full max-w-2xl border-2 border-[#1E293B] shadow-[8px_8px_0_0_#1E293B] flex flex-col max-h-[94dvh] sm:max-h-[75vh] sm:mt-10">
         
         {/* CABECERA */}
         <div className="bg-[#1E293B] text-white px-6 py-4 flex items-center justify-between shrink-0">

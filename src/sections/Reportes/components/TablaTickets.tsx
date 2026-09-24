@@ -94,7 +94,7 @@ export const TablaTickets: React.FC<Props> = ({ tickets, onAnular, onDelete }) =
             <tbody>
               {tickets.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="p-8 text-center text-[#64748B] font-bold text-xs uppercase bg-[#FFFFFF]">
+                  <td colSpan={8} className="p-4 sm:p-6 lg:p-8 text-center text-[#64748B] font-bold text-xs uppercase bg-[#FFFFFF]">
                     No hay tickets registrados en este mes.
                   </td>
                 </tr>
@@ -167,8 +167,8 @@ export const TablaTickets: React.FC<Props> = ({ tickets, onAnular, onDelete }) =
 
       {/* VENTANA FLOTANTE (MODAL PLATO TÉCNICO) */}
       {ticketSeleccionado && (
-        <div className="fixed inset-0 bg-[#1E293B]/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-[#FFFFFF] border-2 border-[#1E293B] shadow-[8px_8px_0px_0px_rgba(30,41,59,1)] rounded-none w-full max-w-lg flex flex-col max-h-[80vh]">
+        <div className="fixed inset-0 bg-[#1E293B]/40 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
+          <div className="bg-[#FFFFFF] border-2 border-[#1E293B] shadow-[8px_8px_0px_0px_rgba(30,41,59,1)] rounded-none w-full max-w-lg flex flex-col max-h-[94dvh] sm:max-h-[80vh]">
             <div className="flex justify-between items-center border-b-2 border-[#1E293B] bg-[#F8FAFC] p-4 shrink-0">
               <div>
                 <p className="text-[#64748B] text-[10px] font-mono tracking-widest uppercase mb-1">Inspección Operativa</p>

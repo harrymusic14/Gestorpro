@@ -91,10 +91,10 @@ export const TerminalBusqueda: React.FC<Props> = ({ searchQuery, setSearchQuery,
       <div className="h-2 w-full bg-[#10B981] shrink-0 rounded-none"></div>
 
       {/* HEADER DE BÚSQUEDA TIPO TERMINAL */}
-      <div className="bg-[#FFFFFF] p-6 border-b border-[#E2E8F0] shrink-0 rounded-none">
+      <div className="bg-[#FFFFFF] p-3 sm:p-6 border-b border-[#E2E8F0] shrink-0 rounded-none">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-xl font-black text-[#1E293B] uppercase tracking-widest flex items-center gap-3">
+            <h1 className="text-base sm:text-xl font-black text-[#1E293B] uppercase tracking-widest flex items-center gap-3">
               <ScanLine className="text-[#1E293B]" size={24} /> Terminal de Operaciones
             </h1>
           </div>
@@ -123,10 +123,10 @@ export const TerminalBusqueda: React.FC<Props> = ({ searchQuery, setSearchQuery,
       </div>
 
       {/* ÁREA DE RESULTADOS */}
-      <div className="flex-1 p-6 overflow-y-auto custom-scrollbar flex flex-col bg-[#F8FAFC]">
+      <div className="flex-1 p-3 sm:p-6 overflow-y-auto custom-scrollbar flex flex-col bg-[#F8FAFC]">
         {searchQuery.trim() === '' ? (
           // ESTADO 1: ESPERANDO BÚSQUEDA
-          <div className="border border-dashed border-[#64748B] flex-1 flex flex-col items-center justify-center text-center p-8 bg-[#FFFFFF] rounded-none">
+          <div className="border border-dashed border-[#64748B] flex-1 flex flex-col items-center justify-center text-center p-4 sm:p-6 lg:p-8 bg-[#FFFFFF] rounded-none">
             <Package size={48} className="text-[#64748B] mb-4" />
             <h2 className="text-sm font-black text-[#1E293B] uppercase tracking-widest mb-2">Área de Trabajo</h2>
             <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest max-w-sm">
@@ -135,7 +135,7 @@ export const TerminalBusqueda: React.FC<Props> = ({ searchQuery, setSearchQuery,
           </div>
         ) : filteredProducts.length === 0 ? (
           // ESTADO 2: SIN RESULTADOS
-          <div className="border border-dashed border-[#1E293B] flex-1 flex flex-col items-center justify-center text-center p-8 bg-[#FFFFFF] rounded-none">
+          <div className="border border-dashed border-[#1E293B] flex-1 flex flex-col items-center justify-center text-center p-4 sm:p-6 lg:p-8 bg-[#FFFFFF] rounded-none">
             <Package size={48} className="text-[#1E293B] opacity-50 mb-4" />
             <h2 className="text-sm font-black text-[#1E293B] uppercase tracking-widest mb-2">Registro Inexistente</h2>
             <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest max-w-sm">
@@ -144,7 +144,7 @@ export const TerminalBusqueda: React.FC<Props> = ({ searchQuery, setSearchQuery,
           </div>
         ) : (
           // ESTADO 3: MOSTRAR RESULTADOS
-          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4">
             {filteredProducts.map((prod, index) => {
               // LÓGICA CORE: Interceptamos la BD para validar Consumo real
               const esConsumo = prod.unit === 'CONSUMO' || (prod as any).control_type === 'CONSUMPTION';
@@ -156,7 +156,7 @@ export const TerminalBusqueda: React.FC<Props> = ({ searchQuery, setSearchQuery,
                   key={prod.id}
                   onClick={() => !estaAgotado && onAddToCart({ ...prod, unit: esConsumo ? 'CONSUMO' : prod.unit })}
                   disabled={estaAgotado} 
-                  className={`p-4 text-left flex flex-col transition-all rounded-none border-2
+                  className={`p-3 sm:p-4 text-left flex flex-col min-w-0 transition-all rounded-none border-2
                     ${isSelected ? 'ring-4 ring-[#10B981] border-[#10B981] scale-[1.02] shadow-xl z-10' : ''}
                     ${estaAgotado 
                       ? 'bg-[#FFFFFF] border-[#E2E8F0] opacity-50 cursor-not-allowed' 
@@ -194,12 +194,12 @@ export const TerminalBusqueda: React.FC<Props> = ({ searchQuery, setSearchQuery,
                     )}
                   </div>
                   
-                  <span className="text-sm font-black text-[#1E293B] uppercase leading-tight line-clamp-2 mb-4">
+                  <span className="text-xs sm:text-sm font-black text-[#1E293B] uppercase leading-tight line-clamp-2 mb-3 sm:mb-4 break-words">
                     {prod.name}
                   </span>
                   
                   <div className="mt-auto flex items-center justify-between pt-3 border-t border-dashed border-[#E2E8F0] w-full">
-                    <span className="text-lg font-black text-[#1E293B] font-mono">
+                    <span className="text-base sm:text-lg font-black text-[#1E293B] font-mono">
                       S/ {prod.price.toFixed(2)}
                     </span>
                     <div className={`w-7 h-7 flex items-center justify-center transition-colors rounded-none border text-[#FFFFFF]

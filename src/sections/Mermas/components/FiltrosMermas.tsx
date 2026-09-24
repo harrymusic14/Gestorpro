@@ -25,7 +25,7 @@ export const FiltrosMermas: React.FC<Props> = ({
   const hasActiveFilters = searchQuery !== '' || filtroMotivo !== '' || filtroOrden !== 'FECHA_DESC' || filtroFecha !== '';
 
   return (
-    <div className="px-8 shrink-0 flex flex-col gap-4">
+    <div className="px-3 sm:px-6 lg:px-8 shrink-0 flex flex-col gap-4">
       <div className="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-4">
         
         {/* BUSCADOR */}

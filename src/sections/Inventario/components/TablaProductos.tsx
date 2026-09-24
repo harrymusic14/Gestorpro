@@ -85,6 +85,9 @@ export const TablaProductos: React.FC<Props> = ({
       {/* === CONTROLES DE PAGINACIÓN ARRIBA === */}
       {renderPagination('top')}
 
+      {/* En pantallas angostas la tabla conserva su ancho mínimo y se desliza horizontalmente */}
+      <div className="flex-1 min-h-0 flex flex-col overflow-x-auto custom-scrollbar">
+      <div className="flex-1 min-h-0 flex flex-col min-w-[960px]">
       {/* CABECERAS DE LA TABLA REESTRUCTURADAS (CON COLUMNA DE IMAGEN) */}
       <div className="grid grid-cols-12 bg-[#1E293B] text-white p-4 text-sm font-black uppercase tracking-[0.2em] shrink-0 items-center">
         <div className="col-span-1 text-center">Img</div>
@@ -101,7 +104,7 @@ export const TablaProductos: React.FC<Props> = ({
       {/* ÁREA SCROLLEABLE DE LOS PRODUCTOS */}
       <div className="overflow-y-auto flex-1 custom-scrollbar">
         {!loading && productos.length === 0 ? (
-          <div className="p-12 text-center text-[#94A3B8] font-bold uppercase text-[10px] tracking-widest flex flex-col items-center justify-center h-full gap-2">
+          <div className="p-6 sm:p-12 text-center text-[#94A3B8] font-bold uppercase text-[10px] tracking-widest flex flex-col items-center justify-center h-full gap-2">
             <Search size={32} className="text-[#E2E8F0] mb-2" />
             No se registran productos con esos parámetros.
           </div>
@@ -316,6 +319,8 @@ export const TablaProductos: React.FC<Props> = ({
             );
           })
         )}
+      </div>
+      </div>
       </div>
 
       {/* === CONTROLES DE PAGINACIÓN ABAJO === */}

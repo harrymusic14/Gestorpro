@@ -196,7 +196,7 @@ export const TablaAnalisisProductos: React.FC<Props> = ({ datos, fechaInicio, fe
           </thead>
           <tbody className="bg-[#FFFFFF]">
             {datosPaginados.length === 0 ? (
-              <tr><td colSpan={8} className="p-8 text-center text-[#64748B] font-bold text-xs uppercase border-b border-[#E2E8F0]">NO SE ENCONTRARON REGISTROS.</td></tr>
+              <tr><td colSpan={8} className="p-4 sm:p-6 lg:p-8 text-center text-[#64748B] font-bold text-xs uppercase border-b border-[#E2E8F0]">NO SE ENCONTRARON REGISTROS.</td></tr>
             ) : (
               datosPaginados.map((prod) => (
                 <tr

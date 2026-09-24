@@ -211,6 +211,9 @@ export const TablaLotes: React.FC<Props> = ({
       {/* Paginación Superior */}
       {renderPagination('top')}
 
+      {/* En pantallas angostas la tabla conserva su ancho mínimo y se desliza horizontalmente */}
+      <div className="flex-1 min-h-0 flex flex-col overflow-x-auto custom-scrollbar">
+      <div className="flex-1 min-h-0 flex flex-col min-w-[960px]">
       {/* Cabecera de la Tabla (TEXTO AGRANDADO a text-sm) */}
       <div className="grid grid-cols-12 bg-[#1E293B] text-white p-4 text-sm font-black uppercase tracking-[0.1em] shrink-0">
         <div className="col-span-2">Fecha / Doc / Prov.</div>
@@ -226,7 +229,7 @@ export const TablaLotes: React.FC<Props> = ({
       {/* Cuerpo Scrolleable */}
       <div className="overflow-y-auto flex-1 custom-scrollbar">
         {!loading && paginatedLotes.length === 0 ? (
-          <div className="p-12 text-center text-[#94A3B8] font-bold uppercase text-[10px] tracking-widest flex flex-col items-center justify-center h-full gap-2">
+          <div className="p-6 sm:p-12 text-center text-[#94A3B8] font-bold uppercase text-[10px] tracking-widest flex flex-col items-center justify-center h-full gap-2">
             <Layers size={32} className="text-[#E2E8F0] mb-2" />
             No hay lotes que coincidan con la búsqueda.
           </div>
@@ -381,6 +384,8 @@ export const TablaLotes: React.FC<Props> = ({
   );
 })
         )}
+      </div>
+      </div>
       </div>
       
       {/* Paginación Inferior */}

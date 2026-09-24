@@ -20,7 +20,7 @@ export const TablaRanking: React.FC<Props> = ({ titulo, items }) => {
       
       <div className="p-4 flex flex-col gap-4 overflow-y-auto custom-scrollbar flex-1">
         {items.length === 0 ? (
-          <p className="text-center text-[#64748B] font-bold text-[10px] uppercase tracking-widest py-8">NO HAY DATOS</p>
+          <p className="text-center text-[#64748B] font-bold text-[10px] uppercase tracking-widest py-5 sm:py-8">NO HAY DATOS</p>
         ) : (
           items.map((item, index) => {
             const porcentaje = (item.total / maxTotal) * 100;

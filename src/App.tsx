@@ -24,7 +24,9 @@ export const App: React.FC = () => {
   const [emailEmpleado, setEmailEmpleado] = useState<string>(''); // Para mostrar en el TopBar
 
   const [isLoading, setIsLoading] = useState(true);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  // Escritorio (≥1280px): barra lateral expandida. Tablet horizontal (1024-1279px): contraída a íconos.
+  // Tablet vertical/celular (<1024px): oculta como menú deslizable.
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => window.innerWidth >= 1280);
   
   // Estado para el Enrutador Interno
   const [currentView, setCurrentView] = useState<string>('resumen');
@@ -127,24 +129,30 @@ export const App: React.FC = () => {
     }
   };
 
+  // En pantallas menores a 1024px (tablet/celular), al elegir un módulo se cierra el menú deslizable
+  const handleNavigate = (view: string) => {
+    setCurrentView(view);
+    if (window.innerWidth < 1024) setIsSidebarOpen(false);
+  };
+
   return (
-    <div className="flex h-screen w-full bg-[#FFFFFF] overflow-hidden">
-      <SideBar 
-        isOpen={isSidebarOpen} 
+    <div className="flex h-dvh w-full bg-[#FFFFFF] overflow-hidden">
+      <SideBar
+        isOpen={isSidebarOpen}
         currentView={currentView}
-        onNavigate={setCurrentView}
-        // @ts-ignore: Ignoramos el error de TypeScript temporalmente hasta actualizar el SideBar
-        permisos={permisos} 
+        onNavigate={handleNavigate}
+        onClose={() => setIsSidebarOpen(false)}
+        permisos={permisos}
       />
-      
-      <main className="flex-1 flex flex-col overflow-auto bg-[#F8FAFC]">
-        <TopBar 
-          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
-          userEmail={session?.user?.email || emailEmpleado || 'EMPLEADO_AUTENTICADO'} 
-          onNavigate={setCurrentView} 
+
+      <main className="flex-1 min-w-0 flex flex-col overflow-hidden bg-[#F8FAFC]">
+        <TopBar
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+          userEmail={session?.user?.email || emailEmpleado || 'EMPLEADO_AUTENTICADO'}
+          onNavigate={handleNavigate}
         />
-        
-        <section className="p-8 flex-1 overflow-y-auto">
+
+        <section className="p-3 sm:p-5 lg:p-8 flex-1 min-w-0 overflow-y-auto overflow-x-hidden">
           {renderCurrentView()}
         </section>
       </main>

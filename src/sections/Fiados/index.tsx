@@ -285,38 +285,38 @@ if (fiaData) {
   }, 0);
 
   return (
-    <div className="h-full flex flex-col gap-6 p-6 max-w-7xl mx-auto font-mono">
+    <div className="h-full flex flex-col gap-4 sm:gap-6 p-0 sm:p-2 lg:p-6 max-w-7xl mx-auto font-mono">
       
       {/* TARJETAS Y CONTROLES */}
-      <div className="flex justify-between items-end shrink-0">
-        <div className="flex gap-4 w-1/2">
-          <div className="flex-1 bg-white border-2 border-[#E2E8F0] shadow-[4px_4px_0_0_#E2E8F0] p-4 flex gap-4 items-center rounded-none">
+      <div className="flex flex-col xl:flex-row justify-between items-stretch xl:items-end gap-4 shrink-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full xl:w-1/2">
+          <div className="min-w-0 bg-white border-2 border-[#E2E8F0] shadow-[4px_4px_0_0_#E2E8F0] p-3 sm:p-4 flex gap-3 sm:gap-4 items-center rounded-none">
             <div className="w-12 h-12 bg-[#F8FAFC] border-2 border-[#E2E8F0] flex items-center justify-center rounded-none"><Coins className="text-[#1E293B]" /></div>
             <div>
               <p className="text-xs font-black uppercase tracking-widest text-[#64748B]">Por Cobrar</p>
-              <p className="text-4xl font-black text-[#1E293B] tracking-tight">S/ {totalPorCobrar.toFixed(2)}</p>
+              <p className="text-2xl sm:text-4xl font-black text-[#1E293B] tracking-tight">S/ {totalPorCobrar.toFixed(2)}</p>
             </div>
           </div>
-          <div className="flex-1 bg-white border-2 border-[#E2E8F0] shadow-[4px_4px_0_0_#E2E8F0] p-4 flex gap-4 items-center rounded-none">
+          <div className="min-w-0 bg-white border-2 border-[#E2E8F0] shadow-[4px_4px_0_0_#E2E8F0] p-3 sm:p-4 flex gap-3 sm:gap-4 items-center rounded-none">
             <div className="w-12 h-12 bg-[#ECFDF5] border-2 border-[#10B981] flex items-center justify-center rounded-none"><Coins className="text-[#10B981]" /></div>
             <div>
               <p className="text-xs font-black uppercase tracking-widest text-[#64748B]">Recuperado Hoy</p>
-              <p className="text-4xl font-black text-[#10B981] tracking-tight">S/ {totalRecuperadoHoy.toFixed(2)}</p>
+              <p className="text-2xl sm:text-4xl font-black text-[#10B981] tracking-tight">S/ {totalRecuperadoHoy.toFixed(2)}</p>
             </div>
           </div>
         </div>
 
         {/* BOTONES PRINCIPALES */}
-        <div className="flex gap-3">
+        <div className="grid grid-cols-2 sm:flex gap-3">
           <button 
             onClick={() => setIsModalClientesOpen(true)}
-            className="h-12 bg-white text-[#1E293B] px-6 border-2 border-[#1E293B] font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:bg-[#F8FAFC] transition-colors shadow-[4px_4px_0_0_#1E293B] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] cursor-pointer"
+            className="h-12 bg-white text-[#1E293B] px-3 sm:px-6 justify-center border-2 border-[#1E293B] font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:bg-[#F8FAFC] transition-colors shadow-[4px_4px_0_0_#1E293B] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] cursor-pointer"
           >
             <BookOpen size={16} /> Directorio Clientes
           </button>
           <button 
             onClick={() => { setFiadoAEditar(null); setIsModalFiadoOpen(true); }}
-            className="h-12 bg-[#1E293B] text-white px-6 border-2 border-[#1E293B] font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:bg-[#F59E0B] hover:text-[#1E293B] transition-colors shadow-[4px_4px_0_0_#1E293B] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] cursor-pointer"
+            className="h-12 bg-[#1E293B] text-white px-3 sm:px-6 justify-center border-2 border-[#1E293B] font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:bg-[#F59E0B] hover:text-[#1E293B] transition-colors shadow-[4px_4px_0_0_#1E293B] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] cursor-pointer"
           >
             <Plus size={16} /> Nueva Deuda
           </button>

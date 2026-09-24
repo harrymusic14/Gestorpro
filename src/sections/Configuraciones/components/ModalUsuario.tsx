@@ -121,8 +121,8 @@ export const ModalUsuario: React.FC<ModalUsuarioProps> = ({ usuario, onClose }) 
   };
 
   return (
-    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white border-2 border-[#1E293B] w-full max-w-5xl max-h-[90vh] flex flex-col shadow-[8px_8px_0_0_#1E293B]">
+    <div className="fixed inset-0 bg-[#1E293B]/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-white border-2 border-[#1E293B] w-full max-w-5xl max-h-[94dvh] sm:max-h-[90vh] flex flex-col shadow-[8px_8px_0_0_#1E293B]">
         
         {/* HEADER */}
         <div className="bg-[#1E293B] p-4 flex justify-between items-center shrink-0">
@@ -136,9 +136,9 @@ export const ModalUsuario: React.FC<ModalUsuarioProps> = ({ usuario, onClose }) 
         </div>
 
         {/* BODY */}
-        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
+        <div className="flex flex-col md:flex-row flex-1 min-h-0 overflow-y-auto md:overflow-hidden">
           {/* IZQUIERDA: DATOS */}
-          <div className="w-full md:w-1/3 border-r border-[#E2E8F0] p-6 bg-[#F8FAFC] overflow-y-auto shrink-0">
+          <div className="w-full md:w-1/3 border-b md:border-b-0 md:border-r border-[#E2E8F0] p-4 sm:p-6 bg-[#F8FAFC] md:overflow-y-auto shrink-0">
             <h3 className="text-[#1E293B] font-bold uppercase text-xs mb-4 border-b border-[#E2E8F0] pb-2 flex items-center gap-2">
               <User size={14} /> Datos de Acceso
             </h3>
@@ -178,7 +178,7 @@ export const ModalUsuario: React.FC<ModalUsuarioProps> = ({ usuario, onClose }) 
           </div>
 
           {/* DERECHA: PERMISOS */}
-          <div className="w-full md:w-2/3 p-6 overflow-y-auto bg-white">
+          <div className="w-full md:w-2/3 p-4 sm:p-6 md:overflow-y-auto bg-white">
             <div className="flex justify-between items-center mb-4 border-b border-[#E2E8F0] pb-2">
               <h3 className="text-[#1E293B] font-bold uppercase text-xs">Asignación de Permisos</h3>
               <button onClick={() => togglePermiso('sistema_acceso_total')} className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 border transition-colors ${permisos.sistema_acceso_total ? 'bg-[#1E293B] text-[#10B981] border-[#1E293B]' : 'bg-white text-[#64748B] border-[#CBD5E1] hover:border-[#10B981]'}`}>

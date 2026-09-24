@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const TarjetaMetrica: React.FC<Props> = ({ label, value, icon, isAlert, isGreen }) => (
-  <div className="flex items-center gap-3 p-4 border border-[#E2E8F0] bg-white rounded-none min-w-[170px] shadow-sm">
+  <div className="flex items-center gap-3 p-3 sm:p-4 border border-[#E2E8F0] bg-white rounded-none min-w-0 xl:min-w-[170px] shadow-sm last:col-span-2 sm:last:col-span-1">
     <div className={`p-2 border border-[#E2E8F0] rounded-none ${
       isAlert ? 'text-red-500 bg-red-50' : 
       isGreen ? 'text-[#10B981] bg-[#ECFDF5]' : 
