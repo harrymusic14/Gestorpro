@@ -33,7 +33,12 @@
   --alto-pantalla: calc((100dvh - 2 * var(--tv-margen-y)) / var(--ui-zoom));
 }
 @media (min-width: 1900px) and (min-height: 1000px) {
-  :root { --ui-zoom: 1.25; --tv-margen-x: 1.5vw; --tv-margen-y: 2vh; }
+  :root { --ui-zoom: 1.25; }
+}
+/* Margen contra el overscan solo en proporción 16:9 exacta (TV en pantalla completa).
+   La ventana del navegador en un monitor nunca queda exacta por las barras del sistema. */
+@media (min-width: 1900px) and (min-height: 1000px) and (aspect-ratio: 16/9) {
+  :root { --tv-margen-x: 1.5vw; --tv-margen-y: 2vh; }
 }
 @media (min-width: 2500px) and (min-height: 1350px) {
   :root { --ui-zoom: 1.5; }
