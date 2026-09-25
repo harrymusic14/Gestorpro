@@ -16,6 +16,20 @@
   border-radius: 0px !important;
 }
 
+/* Samsung Internet ignora "color-scheme: only light" y oscurece la página por su cuenta,
+   salvo que el sitio tenga su propio tema oscuro. Este "tema oscuro" usa los mismos
+   colores claros, así el navegador no invierte nada y la app se ve igual en todos lados. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: only light;
+  }
+  html,
+  body {
+    background-color: #FFFFFF;
+    color: #1E293B;
+  }
+}
+
 /* ==========================================================================
    PANTALLAS: LAPTOP Y TELEVISOR
    ========================================================================== */
