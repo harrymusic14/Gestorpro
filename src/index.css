@@ -3,7 +3,10 @@
 /* BYPASS TÉCNICO: Usamos :root en lugar de @theme para evitar que 
    el compilador v4 colapse al generar el diccionario de variables. */
 :root {
-  --color-brand-primary: #1E293B; 
+  /* La app está diseñada solo en tema claro. "only light" le indica al navegador
+     (Chrome, Samsung Internet, Edge) que no la oscurezca con su modo oscuro automático. */
+  color-scheme: only light;
+  --color-brand-primary: #1E293B;
   --color-brand-accent: #10B981;  
   --color-brand-border: #E2E8F0;  
   --color-brand-bg: #FFFFFF;      
