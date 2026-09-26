@@ -74,7 +74,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
 
     let identificador = email.trim();
     if (!identificador.includes('@')) {
-      identificador = `${identificador}@evicamp.com`; 
+      identificador = `${identificador}@gestorpro.com`; // "admin" → admin@gestorpro.com
     }
 
     // 🔥 VAMOS DIRECTO A TU TABLA DE EMPLEADOS (Bypass al Auth de Supabase que causa el error 405)
