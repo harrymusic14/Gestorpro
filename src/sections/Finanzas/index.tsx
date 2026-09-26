@@ -217,7 +217,7 @@ export const Finanzas: React.FC = () => {
       <div className="flex flex-col lg:flex-row justify-between items-stretch lg:items-end gap-4 shrink-0">
         <div>
           <h1 className="text-xl sm:text-3xl font-black text-[#1E293B] uppercase tracking-tighter flex items-center gap-3">
-            <Wallet className="text-[#10B981] w-6 h-6 sm:w-8 sm:h-8" /> Control de Caja
+            <Wallet className="text-[#10B981] w-6 h-6 sm:w-8 sm:h-8" /> Tesorería
           </h1>
           <p className="text-[#64748B] text-xs font-bold tracking-widest uppercase mt-1">
             Arqueo de Yape, Efectivo y Deudas en tiempo real

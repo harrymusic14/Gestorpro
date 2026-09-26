@@ -17,7 +17,7 @@ export const HeaderInventario: React.FC<Props> = ({ onIngresoStock, onNuevoSKU, 
     <div className="bg-white border-b border-[#E2E8F0] p-4 sm:p-6 lg:p-8 short:py-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 rounded-none relative shrink-0">
       <div>
         <h1 className="text-2xl font-black uppercase tracking-tighter text-[#1E293B] flex items-center gap-3">
-          <Package size={24} className="text-[#10B981]"/> Catálogo de Existencias
+          <Package size={24} className="text-[#10B981]"/> Control de Stock
         </h1>
         <p className="text-[10px] font-bold text-[#64748B] mt-2 tracking-widest uppercase">
           Gestión de Almacén, Precios y Valorización

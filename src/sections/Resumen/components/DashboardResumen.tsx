@@ -235,9 +235,9 @@ export const DashboardResumen: React.FC = () => {
         <div className="min-w-0">
           <h1 className="text-xl sm:text-3xl font-black text-[#1E293B] tracking-tight flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-1 uppercase">
             <LayoutDashboard className="text-[#10B981] w-6 h-6 sm:w-8 sm:h-8" />
-            Resumen <span className="text-[#10B981]">Operativo</span>
+            Panel de <span className="text-[#10B981]">Control</span>
           </h1>
-          <p className="text-[#64748B] text-[10px] mt-1 font-mono uppercase tracking-widest sm:tracking-[0.4em] font-bold">Consolidado Real de Mermas y Finanzas</p>
+          <p className="text-[#64748B] text-[10px] mt-1 font-mono uppercase tracking-widest sm:tracking-[0.4em] font-bold">Consolidado de Operaciones y Tesorería</p>
         </div>
         
         <div className="flex flex-col items-stretch md:items-end gap-3 w-full md:w-auto">
@@ -282,7 +282,7 @@ export const DashboardResumen: React.FC = () => {
             <TarjetaMetrica titulo="Ventas Netas" valor={fSoles(metricas.ventasBrutas)} icono={DollarSign} colorIcono="text-[#10B981]" bgIcono="bg-[#D1FAE5]" esPositivo={true} />
             <TarjetaMetrica titulo="Ganancia Real" valor={fSoles(metricas.utilidadReal)} icono={TrendingUp} colorIcono="text-[#10B981]" bgIcono="bg-[#D1FAE5]" esPositivo={metricas.utilidadReal > 0} />
             <TarjetaMetrica titulo="Inversión en Costo" valor={fSoles(metricas.costoVenta)} icono={ShoppingCart} colorIcono="text-[#1E293B]" bgIcono="bg-[#F1F5F9]" />
-            <TarjetaMetrica titulo="Saldos Fiados" valor={fSoles(metricas.cuentasPorCobrar)} icono={Users} colorIcono="text-red-600" bgIcono="bg-red-50" />
+            <TarjetaMetrica titulo="Saldos por Cobrar" valor={fSoles(metricas.cuentasPorCobrar)} icono={Users} colorIcono="text-red-600" bgIcono="bg-red-50" />
           </div>
         </section>
         )}
@@ -290,14 +290,14 @@ export const DashboardResumen: React.FC = () => {
         {/* CONTROL DE ACTIVOS */}
         <section>
           <h2 className="text-[12px] font-black text-[#1E293B] uppercase tracking-widest sm:tracking-[0.3em] mb-5 flex items-center gap-4">
-            <div className="w-3 h-5 bg-[#1E293B]"></div> Inventario y Mermas
+            <div className="w-3 h-5 bg-[#1E293B]"></div> Stock y Pérdidas
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6">
             {verDinero && <TarjetaMetrica titulo="Valorización Total" valor={fSoles(metricas.valorizacionInventario)} icono={Package} colorIcono="text-[#1E293B]" bgIcono="bg-[#F1F5F9]" />}
             <TarjetaMetrica titulo="Stock Unidades" valor={String(Math.round(metricas.unidadesTotales))} icono={Hash} colorIcono="text-[#1E293B]" bgIcono="bg-[#F1F5F9]" />
             <TarjetaMetrica titulo="Stock Kilos" valor={`${metricas.kilosTotales.toFixed(2)} KG`} icono={Hash} colorIcono="text-[#1E293B]" bgIcono="bg-[#F1F5F9]" />
             <TarjetaMetrica titulo="Items Activos" valor={metricas.catalogoActivo} icono={Tags} colorIcono="text-[#10B981]" bgIcono="bg-[#D1FAE5]" />
-            {verDinero && <TarjetaMetrica titulo="Mermas Registradas" valor={fSoles(metricas.mermasValor)} icono={Trash2} colorIcono="text-red-600" bgIcono="bg-red-50" />}
+            {verDinero && <TarjetaMetrica titulo="Pérdidas Registradas" valor={fSoles(metricas.mermasValor)} icono={Trash2} colorIcono="text-red-600" bgIcono="bg-red-50" />}
           </div>
         </section>
 

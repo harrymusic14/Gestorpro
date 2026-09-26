@@ -45,28 +45,28 @@ export const SideBar: React.FC<SideBarProps> = ({ isOpen, currentView, onNavigat
   // Modulos divididos por Categorías Lógicas con sus Iconos asignados
   const menuGroupsRaw = [
     {
-      category: 'Operaciones',
+      category: 'Núcleo Operativo',
       items: [
-        { id: 'resumen', name: 'Resumen', icon: LayoutDashboard },
-        { id: 'pos', name: 'Punto de Venta', icon: ShoppingCart },
-        { id: 'fiados', name: 'Fiados / Clientes', icon: Users },
+        { id: 'resumen', name: 'Panel de Control', icon: LayoutDashboard },
+        { id: 'pos', name: 'Terminal POS', icon: ShoppingCart },
+        { id: 'fiados', name: 'Cuentas por Cobrar', icon: Users },
       ]
     },
     {
-      category: 'Logística',
+      category: 'Cadena de Suministro',
       items: [
-        { id: 'inventario', name: 'Inventario', icon: Package },
-        { id: 'proveedores', name: 'Proveedores', icon: Truck },
-        { id: 'mermas', name: 'Mermas', icon: Trash2 },
+        { id: 'inventario', name: 'Control de Stock', icon: Package },
+        { id: 'proveedores', name: 'Abastecimiento', icon: Truck },
+        { id: 'mermas', name: 'Control de Pérdidas', icon: Trash2 },
       ]
     },
     {
-      category: 'Administración',
+      category: 'Gestión Gerencial',
       items: [
-        { id: 'finanzas', name: 'Finanzas', icon: Wallet },
-        { id: 'utilidades', name: 'Utilidades', icon: BarChart3 },
-        { id: 'reportes', name: 'Reportes', icon: FileText },
-        { id: 'configuracion', name: 'Configuración', icon: Settings },
+        { id: 'finanzas', name: 'Tesorería', icon: Wallet },
+        { id: 'utilidades', name: 'Análisis de Rentabilidad', icon: BarChart3 },
+        { id: 'reportes', name: 'Auditoría de Ventas', icon: FileText },
+        { id: 'configuracion', name: 'Parámetros del Sistema', icon: Settings },
       ]
     }
   ];
@@ -134,7 +134,7 @@ export const SideBar: React.FC<SideBarProps> = ({ isOpen, currentView, onNavigat
               {isOpen ? (
                 <>
                   <div className="h-[2px] w-3 bg-[#10B981] shrink-0"></div>
-                  <span className="text-xs font-black text-[#1E293B] uppercase tracking-[0.3em] whitespace-nowrap">
+                  <span className="text-xs font-black text-[#1E293B] uppercase tracking-[0.2em] whitespace-nowrap">
                     {group.category}
                   </span>
                 </>
@@ -154,7 +154,7 @@ export const SideBar: React.FC<SideBarProps> = ({ isOpen, currentView, onNavigat
                     key={item.id}
                     onClick={() => onNavigate(item.id)}
                     title={!isOpen ? item.name : undefined}
-                    className={`w-full text-left py-3 short:py-2 text-xs font-black uppercase tracking-widest transition-all border rounded-none flex items-center cursor-pointer ${
+                    className={`w-full text-left py-3 short:py-2 text-xs font-black uppercase tracking-wider transition-all border rounded-none flex items-center cursor-pointer ${
                       isOpen ? 'px-4 justify-between' : 'justify-center px-0'
                     } ${
                       isActive 
