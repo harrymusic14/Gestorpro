@@ -3,7 +3,8 @@ import { Database,Layers, Edit, Trash2, History, ChevronLeft, ChevronRight } fro
 import { supabase } from '../../../db/supabase';
 import { formatearCantidad } from '../../../utils/formato';
 import { clicConTeclado } from '../../../utils/clicConTeclado';
-import { usePermiso } from '../../../utils/permisos';
+import { usePermiso } from '../../../utils/permisos';
+import { traerTodo } from '../../../utils/traerTodo';
 
 interface Lote {
   id: string;
@@ -46,14 +47,15 @@ export const TablaLotes: React.FC<Props> = ({
       setLoading(true);
       try {
         // 🛡️ OPTIMIZACIÓN: Ocultamos los lotes que fueron eliminados (is_active: 0)
-        const { data, error } = await supabase
+        const { data, error } = await traerTodo(() => supabase
           .from('batches')
           .select(`
             *,
             products!batches_product_id_fkey (*)
           `)
           .neq('is_active', 0) // 🔥 EL ESCUDO: Ya no descarga los eliminados
-          .order('created_at', { ascending: false });
+          .order('created_at', { ascending: false })
+          .order('id'));
 
         if (error) throw error;
 

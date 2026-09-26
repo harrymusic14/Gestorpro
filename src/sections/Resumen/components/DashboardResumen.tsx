@@ -11,6 +11,7 @@ import { supabase } from '../../../db/supabase';
 // Reportes, Utilidades, Finanzas y Punto de Venta, para que "Ventas Netas" SIEMPRE coincida.
 import { calcularIngresoTotal, fechaLocalPeru, primerDiaMesPeru, haceNDiasPeru, rangoUTCPeru } from '../../../utils/ingresos';
 import { usePermiso } from '../../../utils/permisos';
+import { traerTodo } from '../../../utils/traerTodo';
 
 export const DashboardResumen: React.FC = () => {
   // Las cifras de dinero (ventas, ganancia, inversión, valorización) requieren permiso
@@ -51,13 +52,13 @@ export const DashboardResumen: React.FC = () => {
           { data: debtPayments, error: errPayments },
           { data: batches, error: errBatches } // <-- AÑADIDO PARA LEER LOS LOTES
         ] = await Promise.all([
-          supabase.from('sales').select('*'),
-          supabase.from('sale_details').select('*'),
-          supabase.from('waste').select('*'),
-          supabase.from('products').select('*'), 
-          supabase.from('fiados').select('*'),
-          supabase.from('debt_payments').select('*'),
-          supabase.from('batches').select('id, product_id, quantity, cost_unit') // <-- AÑADIDO
+          traerTodo(() => supabase.from('sales').select('*').order('id')),
+          traerTodo(() => supabase.from('sale_details').select('*').order('id')),
+          traerTodo(() => supabase.from('waste').select('*').order('id')),
+          traerTodo(() => supabase.from('products').select('*').order('id')),
+          traerTodo(() => supabase.from('fiados').select('*').order('id')),
+          traerTodo(() => supabase.from('debt_payments').select('*').order('id')),
+          traerTodo(() => supabase.from('batches').select('id, product_id, quantity, cost_unit').order('id')) // <-- AÑADIDO
         ]);
 
         if (errSales || errDetails || errWaste || errProducts || errFiados || errPayments || errBatches) {

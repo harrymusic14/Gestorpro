@@ -48,7 +48,7 @@ export const SideBar: React.FC<SideBarProps> = ({ isOpen, currentView, onNavigat
       category: 'Núcleo Operativo',
       items: [
         { id: 'resumen', name: 'Panel de Control', icon: LayoutDashboard },
-        { id: 'pos', name: 'Terminal POS', icon: ShoppingCart },
+        { id: 'pos', name: 'Punto de Venta', icon: ShoppingCart },
         { id: 'fiados', name: 'Cuentas por Cobrar', icon: Users },
       ]
     },

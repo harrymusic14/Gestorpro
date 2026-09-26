@@ -27,16 +27,16 @@ export const TopBar: React.FC<TopBarProps> = ({ toggleSidebar, userEmail, onNavi
     
     // 2. Función SEGURA para contar fiados
     const fetchFiadosCount = async () => {
-      const { data, error } = await supabase
+      const { count, error } = await supabase
         .from('fiados')
-        .select('id') // Traemos solo el ID para que sea súper rápido
+        .select('id', { count: 'exact', head: true }) // solo el total, sin límite de 1000 filas
         .neq('status', 'CANCELADO') // CANCELADO = ya pagado
         .neq('status', 'ANULADO'); // ANULADO = deuda/venta anulada, no cuenta como pendiente
       
       if (error) {
         console.error("Error al buscar fiados:", error);
-      } else if (data) {
-        setFiadosCount(data.length); // Contamos directamente cuántos registros llegaron
+      } else {
+        setFiadosCount(count ?? 0);
       }
     };
     

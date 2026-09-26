@@ -10,6 +10,7 @@ import { ModalAnularPago } from './components/ModalAnularPago'; // <-- Nuevo mod
 import type { Fiado, Cliente, PagoAbono } from './types'; // <-- Importamos PagoAbono
 import type { Product } from '../Inventario/types';
 import { usePermiso } from '../../utils/permisos';
+import { traerTodo } from '../../utils/traerTodo';
 
 export const Fiados: React.FC = () => {
   // Crear deudas es como vender a crédito
@@ -43,11 +44,11 @@ export const Fiados: React.FC = () => {
         { data: fiaData },
         { data: pagosData }
       ] = await Promise.all([
-        supabase.from('products').select('*'),
-        supabase.from('customers').select('*'),
+        traerTodo(() => supabase.from('products').select('*').order('id')),
+        traerTodo(() => supabase.from('customers').select('*').order('id')),
         // Filtro Ampliado: Descarga también los CANCELADOS para poder visualizarlos en la tabla como 'PAGADOS'
-        supabase.from('fiados').select('*').in('status', ['PENDIENTE', 'VENCIDO', 'CANCELADO']),
-        supabase.from('debt_payments').select('*')
+        traerTodo(() => supabase.from('fiados').select('*').in('status', ['PENDIENTE', 'VENCIDO', 'CANCELADO']).order('id')),
+        traerTodo(() => supabase.from('debt_payments').select('*').order('id'))
       ]);
 
       // 1. Asignar Inventario

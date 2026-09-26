@@ -11,7 +11,8 @@ import { TicketVenta } from './components/TicketVenta';
 import { ModalCobro } from './components/ModalCobro';
 import { ModalBalanza } from './components/ModalBalanza';
 import { ModalPrecioConsumo } from './components/ModalPrecioConsumo';
-import { TicketImprimible } from './components/TicketImprimible';
+import { TicketImprimible } from './components/TicketImprimible';
+import { traerTodo } from '../../utils/traerTodo';
 import { MiniReporteDiario } from './components/MiniReporteDiario'; // 🛡️ EVICAMP: Mini Reporte en Tiempo Real
 
 export const POS: React.FC = () => {
@@ -219,12 +220,12 @@ const [searchQuery, setSearchQuery] = useState('');
       // Bloqueo de Seguridad: Verificar Caja
       const { data: session } = await supabase.from('cash_sessions').select('id').eq('status', 'OPEN').maybeSingle();
       setHasOpenSession(!!session);
-      // 🛡️ PARCHE DE ARQUITECTURA: Romper el límite de 1000 filas de Supabase
-      const { data } = await supabase.from('products')
+      // Supabase devuelve máximo 1000 filas por consulta: traerTodo las pide por bloques
+      const { data } = await traerTodo(() => supabase.from('products')
         .select('*')
         .eq('is_active', 1) // 🛡️ EVICAMP: Bloqueo de productos fantasma directo en el motor de BD
-        .limit(15000)
-        .order('name', { ascending: true });
+        .order('name', { ascending: true })
+        .order('id'));
         
       if (data) {
         const mapeados: Product[] = data.map((p: any) => ({
