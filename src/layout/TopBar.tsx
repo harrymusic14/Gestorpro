@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../db/supabase';
 import { LogOut, Activity, AlertTriangle } from 'lucide-react';
+import { usePermiso } from '../utils/permisos';
+import { cerrarSesion } from '../utils/sesion';
 
 interface TopBarProps {
   toggleSidebar: () => void;
@@ -10,6 +12,7 @@ interface TopBarProps {
 }
 
 export const TopBar: React.FC<TopBarProps> = ({ toggleSidebar, userEmail, onNavigate }) => {
+  const puedeVerFiados = usePermiso('caja_ver_fiados');
   const [time, setTime] = useState<string>('');
   const [fiadosCount, setFiadosCount] = useState<number>(0);
 
@@ -38,7 +41,7 @@ export const TopBar: React.FC<TopBarProps> = ({ toggleSidebar, userEmail, onNavi
     };
     
     // Ejecutamos la primera vez que carga la página
-    fetchFiadosCount();
+    if (puedeVerFiados) fetchFiadosCount(); // la alerta de fiados solo es para quien puede verlos
 
     // NOTA DE INGENIERÍA: Se ha eliminado el bloque de "SUSCRIPCIÓN EN TIEMPO REAL"
     // para adaptar el código a nuestra arquitectura de PostgreSQL Puro.
@@ -48,7 +51,7 @@ export const TopBar: React.FC<TopBarProps> = ({ toggleSidebar, userEmail, onNavi
       clearInterval(timer);
       // También eliminamos el supabase.removeChannel(channel) de aquí
     };
-  }, []);
+  }, [puedeVerFiados]);
 
   return (
     <header className="h-16 border-b border-[#E2E8F0] bg-white flex items-center justify-between gap-2 px-3 sm:px-4 lg:px-6 shrink-0 font-mono relative z-10">
@@ -79,7 +82,7 @@ export const TopBar: React.FC<TopBarProps> = ({ toggleSidebar, userEmail, onNavi
       <div className="flex items-center h-full py-3 gap-2 lg:gap-4 min-w-0">
         
         {/* BOTÓN ALERTA DE FIADOS: Solo aparece si hay deudas mayores a 0 */}
-        {fiadosCount > 0 && (
+        {puedeVerFiados && fiadosCount > 0 && (
           <button 
             onClick={() => onNavigate('fiados')}
             className="flex items-center shrink-0 whitespace-nowrap border-2 border-[#F59E0B] px-2 sm:px-3 py-1.5 bg-[#FFFBEB] text-[9px] font-black uppercase tracking-widest text-[#D97706] hover:bg-[#F59E0B] hover:text-white transition-all cursor-pointer animate-pulse shadow-[2px_2px_0_0_#D97706] hover:shadow-none active:translate-x-[2px] active:translate-y-[2px]"
@@ -106,9 +109,9 @@ export const TopBar: React.FC<TopBarProps> = ({ toggleSidebar, userEmail, onNavi
         </div>
         
         <button 
-  onClick={() => {
-    localStorage.removeItem('empleado_session'); // Borramos la memoria local
-    window.location.reload();                    // Recargamos la página
+  onClick={async () => {
+    await cerrarSesion();       // Cierra la sesión también en la base
+    window.location.reload();   // Vuelve al login
   }}
   aria-label="Cerrar sesión"
   className="shrink-0 px-3 md:px-5 py-2 border border-[#1E293B] bg-[#1E293B] text-xs font-black uppercase tracking-[0.2em] text-white hover:bg-transparent hover:text-red-600 hover:border-red-600 transition-colors rounded-none cursor-pointer flex items-center gap-2"

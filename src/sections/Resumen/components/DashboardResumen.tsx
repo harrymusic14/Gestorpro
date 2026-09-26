@@ -9,9 +9,14 @@ import { TarjetaMetrica } from './TarjetaMetrica';
 import { supabase } from '../../../db/supabase';
 // 🎯 MOTOR ÚNICO DE INGRESO TOTAL: misma fórmula y mismas fechas (Perú, UTC-5 fijo) que
 // Reportes, Utilidades, Finanzas y Punto de Venta, para que "Ventas Netas" SIEMPRE coincida.
-import { calcularIngresoTotal, fechaLocalPeru, primerDiaMesPeru, haceNDiasPeru, rangoUTCPeru } from '../../../utils/ingresos';
+import { calcularIngresoTotal, fechaLocalPeru, primerDiaMesPeru, haceNDiasPeru, rangoUTCPeru } from '../../../utils/ingresos';
+import { usePermiso } from '../../../utils/permisos';
 
 export const DashboardResumen: React.FC = () => {
+  // Las cifras de dinero (ventas, ganancia, inversión, valorización) requieren permiso
+  const verUtilidades = usePermiso('gerencia_ver_utilidades');
+  const verReportesGlobales = usePermiso('reportes_ver_globales');
+  const verDinero = verUtilidades || verReportesGlobales;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [rawData, setRawData] = useState<any>(null); // Memoria cache
@@ -260,7 +265,15 @@ export const DashboardResumen: React.FC = () => {
 
       <div className="flex-1 overflow-auto p-3 sm:p-6 lg:p-8 space-y-8 sm:space-y-10 short:space-y-5 custom-scrollbar">
 
+        {/* Sin permiso de utilidades/reportes globales solo se ven las cantidades de stock */}
+        {!verDinero && (
+          <p className="text-[10px] font-black text-[#64748B] uppercase tracking-widest border-l-4 border-[#E2E8F0] pl-3">
+            Las cifras de dinero solo las ven los usuarios con permiso "Ver utilidades" o "Ver reportes globales".
+          </p>
+        )}
+
         {/* MÉTRICAS DE ALTO IMPACTO */}
+        {verDinero && (
         <section>
           <h2 className="text-[12px] font-black text-[#1E293B] uppercase tracking-widest sm:tracking-[0.3em] mb-5 flex items-center gap-4">
             <div className="w-3 h-5 bg-[#10B981]"></div> Balance Financiero
@@ -272,6 +285,7 @@ export const DashboardResumen: React.FC = () => {
             <TarjetaMetrica titulo="Saldos Fiados" valor={fSoles(metricas.cuentasPorCobrar)} icono={Users} colorIcono="text-red-600" bgIcono="bg-red-50" />
           </div>
         </section>
+        )}
 
         {/* CONTROL DE ACTIVOS */}
         <section>
@@ -279,15 +293,16 @@ export const DashboardResumen: React.FC = () => {
             <div className="w-3 h-5 bg-[#1E293B]"></div> Inventario y Mermas
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6">
-            <TarjetaMetrica titulo="Valorización Total" valor={fSoles(metricas.valorizacionInventario)} icono={Package} colorIcono="text-[#1E293B]" bgIcono="bg-[#F1F5F9]" />
+            {verDinero && <TarjetaMetrica titulo="Valorización Total" valor={fSoles(metricas.valorizacionInventario)} icono={Package} colorIcono="text-[#1E293B]" bgIcono="bg-[#F1F5F9]" />}
             <TarjetaMetrica titulo="Stock Unidades" valor={String(Math.round(metricas.unidadesTotales))} icono={Hash} colorIcono="text-[#1E293B]" bgIcono="bg-[#F1F5F9]" />
             <TarjetaMetrica titulo="Stock Kilos" valor={`${metricas.kilosTotales.toFixed(2)} KG`} icono={Hash} colorIcono="text-[#1E293B]" bgIcono="bg-[#F1F5F9]" />
             <TarjetaMetrica titulo="Items Activos" valor={metricas.catalogoActivo} icono={Tags} colorIcono="text-[#10B981]" bgIcono="bg-[#D1FAE5]" />
-            <TarjetaMetrica titulo="Mermas Registradas" valor={fSoles(metricas.mermasValor)} icono={Trash2} colorIcono="text-red-600" bgIcono="bg-red-50" />
+            {verDinero && <TarjetaMetrica titulo="Mermas Registradas" valor={fSoles(metricas.mermasValor)} icono={Trash2} colorIcono="text-red-600" bgIcono="bg-red-50" />}
           </div>
         </section>
 
         {/* ÁREA ANALÍTICA */}
+        {verDinero && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8 pb-12">
           
           {/* GRÁFICA DE FLUJO MANTENIDA CON BORDES SUAVIZADOS */}
@@ -350,6 +365,7 @@ export const DashboardResumen: React.FC = () => {
           </div>
 
         </div>
+        )}
       </div>
     </div>
   );

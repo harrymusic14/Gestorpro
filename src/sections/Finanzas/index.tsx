@@ -18,8 +18,12 @@ import { FiltroFechas } from './components/FiltroFechas';
 // (SuperMetricas ahora vive en ./types porque ModalCierre tambien lo necesita para el arqueo
 // de Efectivo/Yape/Tarjeta al cerrar caja.)
 import { calcularIngresoTotal, fechaLocalPeru } from '../../utils/ingresos';
+import { usePermiso } from '../../utils/permisos';
 
 export const Finanzas: React.FC = () => {
+  // Abrir/cerrar caja y registrar ingresos/egresos son permisos distintos
+  const puedeTurno = usePermiso('caja_abrir_cerrar_turno');
+  const puedeMovimientos = usePermiso('caja_ingresos_egresos');
   const [sessionActiva, setSessionActiva] = useState<CashSession | null>(null);
   const [movimientos, setMovimientos] = useState<CashMovement[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -236,18 +240,22 @@ export const Finanzas: React.FC = () => {
           </button>
 
           {vistaActual === 'ACTUAL' && (
-            !sessionActiva ? (
+            !sessionActiva ? (puedeTurno && (
               <button onClick={() => setIsAperturaModalOpen(true)} className="flex-1 sm:flex-none bg-[#10B981] text-white px-4 sm:px-6 py-3 border-2 border-[#1E293B] font-black text-xs uppercase tracking-[0.2em] shadow-[4px_4px_0_0_#1E293B] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_#1E293B] transition-all cursor-pointer">
                 Aperturar Caja
-              </button>
+              </button>)
             ) : (
               <>
+                {puedeMovimientos && (
                 <button onClick={() => setIsMovimientoModalOpen(true)} className="flex-1 sm:flex-none justify-center bg-white text-[#1E293B] px-4 py-3 border-2 border-[#1E293B] font-black text-xs uppercase tracking-widest flex items-center gap-2 shadow-[4px_4px_0_0_#1E293B] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_#1E293B] transition-all cursor-pointer">
                   + Nuevo Movimiento
                 </button>
+                )}
+                {puedeTurno && (
                 <button onClick={() => setIsCierreModalOpen(true)} className="flex-1 sm:flex-none justify-center bg-[#EF4444] text-white px-4 sm:px-6 py-3 border-2 border-[#1E293B] font-black text-xs uppercase tracking-[0.2em] flex items-center gap-2 shadow-[4px_4px_0_0_#1E293B] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_#1E293B] transition-all cursor-pointer">
                   <Lock size={16} /> Cerrar Caja
                 </button>
+                )}
               </>
             )
           )}

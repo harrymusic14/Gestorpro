@@ -9,8 +9,11 @@ import { ModalDetalleFiado } from './components/ModalDetalleFiado';
 import { ModalAnularPago } from './components/ModalAnularPago'; // <-- Nuevo modal
 import type { Fiado, Cliente, PagoAbono } from './types'; // <-- Importamos PagoAbono
 import type { Product } from '../Inventario/types';
+import { usePermiso } from '../../utils/permisos';
 
 export const Fiados: React.FC = () => {
+  // Crear deudas es como vender a crédito
+  const puedeVender = usePermiso('caja_realizar_ventas');
   const [fiados, setFiados] = useState<Fiado[]>([]);
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [productosInventario, setProductosInventario] = useState<Product[]>([]);
@@ -314,12 +317,14 @@ if (fiaData) {
           >
             <BookOpen size={16} /> Directorio Clientes
           </button>
+          {puedeVender && (
           <button 
             onClick={() => { setFiadoAEditar(null); setIsModalFiadoOpen(true); }}
             className="h-12 bg-[#1E293B] text-white px-3 sm:px-6 justify-center border-2 border-[#1E293B] font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:bg-[#F59E0B] hover:text-[#1E293B] transition-colors shadow-[4px_4px_0_0_#1E293B] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] cursor-pointer"
           >
             <Plus size={16} /> Nueva Deuda
           </button>
+          )}
         </div>
       </div>
 

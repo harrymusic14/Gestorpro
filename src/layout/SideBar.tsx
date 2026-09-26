@@ -9,6 +9,7 @@ import {
 // IMPORTAMOS EL LOGO Y SUPABASE
 import logoEvicamp from '../assets/logo.png';
 import { supabase } from '../db/supabase';
+import { puedeVerModulo } from '../utils/permisos';
 
 interface SideBarProps {
   isOpen: boolean;
@@ -38,25 +39,8 @@ export const SideBar: React.FC<SideBarProps> = ({ isOpen, currentView, onNavigat
     fetchEmpresa();
   }, []);
 
-  // Función para verificar si el empleado tiene acceso a un módulo
-  const tieneAcceso = (modulo: string) => {
-    // Si no se pasaron permisos (ej. es el Admin Maestro) o tiene acceso total, ve todo
-    if (!permisos || permisos.sistema_acceso_total) return true;
-
-    switch (modulo) {
-      case 'resumen': return true; // El dashboard inicial siempre se ve
-      case 'pos': return permisos.caja_realizar_ventas;
-      case 'fiados': return permisos.caja_ver_fiados;
-      case 'inventario': return permisos.almacen_ver_stock;
-      case 'proveedores': return permisos.almacen_gestionar_proveedores;
-      case 'mermas': return permisos.almacen_registrar_mermas;
-      case 'finanzas': return (permisos.caja_abrir_cerrar_turno || permisos.caja_ingresos_egresos);
-      case 'utilidades': return permisos.gerencia_ver_utilidades;
-      case 'reportes': return (permisos.reportes_ver_historial_ventas || permisos.reportes_ver_globales);
-      case 'configuracion': return permisos.gerencia_configuracion_sistema;
-      default: return false;
-    }
-  };
+  // Qué módulos puede ver: la regla vive en utils/permisos (la misma que usa App para bloquear el acceso)
+  const tieneAcceso = (modulo: string) => puedeVerModulo(permisos, modulo);
 
   // Modulos divididos por Categorías Lógicas con sus Iconos asignados
   const menuGroupsRaw = [
