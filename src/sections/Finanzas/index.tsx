@@ -157,7 +157,14 @@ export const Finanzas: React.FC = () => {
               ingresosExtra += Number(m.amount);
             }
           }
-          if (m.type === 'EGRESO') gastos += Number(m.amount);
+          if (m.type === 'EGRESO') {
+            if (m.flujo !== 'DEVOLUCION') {
+              const tipoPago = (m.payment_type || 'efectivo').toLowerCase();
+              if (tipoPago === 'efectivo') {
+                gastos += Number(m.amount);
+              }
+            }
+          }
         });
 
         salesData?.forEach(s => {

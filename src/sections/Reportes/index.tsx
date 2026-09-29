@@ -46,17 +46,9 @@ export const Reportes: React.FC = () => {
   };
   // ------------------------------------
 
-  useEffect(() => {
-    const autoLimpiarAntiguos = async () => {
-      const fechaLimite = new Date();
-      fechaLimite.setDate(fechaLimite.getDate() - 30);
-      await supabase
-        .from('sales')
-        .delete()
-        .lt('created_at', fechaLimite.toISOString());
-    };
-    autoLimpiarAntiguos();
-  }, []);
+  // Nota: antes aquí se borraban en silencio las ventas con más de 30 días cada vez que se
+  // abría esta sección, lo que destruía el historial que usan el Panel de Control, Tesorería
+  // y Análisis de Rentabilidad. Se quitó: las ventas no se borran automáticamente.
 
   useEffect(() => {
     const fetchTickets = async () => {

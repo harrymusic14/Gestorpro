@@ -82,7 +82,7 @@ export const ModalProducto: React.FC<Props> = ({ isOpen, onClose, onGoToLotes, o
           price: initialData.price?.toString() || '',
           minStock: initialData.minStock?.toString() || '5',
           weightUnit: ['KG', 'GR', 'LT', 'ML'].includes(initialData.unit) ? initialData.unit : 'KG',
-          image: initialData.image || ''
+          image: initialData.imageUrl || initialData.image_url || initialData.image || ''
         });
         
         if (initialData.unit === 'UND') setNature('UNIDAD');
