@@ -33,7 +33,7 @@ export const ThemeSwitcher: React.FC = () => {
         {/* TEMA CLÁSICO */}
         <button 
           onClick={() => changeTheme('classic')}
-          className={\`relative flex flex-col text-left border-2 p-4 transition-all \${theme === 'classic' ? 'border-[#10B981] shadow-[4px_4px_0_0_#1E293B] bg-[#ECFDF5]' : 'border-[#E2E8F0] hover:border-[#1E293B] hover:shadow-[4px_4px_0_0_#1E293B] hover:-translate-y-1'}\`}
+          className={`relative flex flex-col text-left border-2 p-4 transition-all ${theme === 'classic' ? 'border-[#10B981] shadow-[4px_4px_0_0_#1E293B] bg-[#ECFDF5]' : 'border-[#E2E8F0] hover:border-[#1E293B] hover:shadow-[4px_4px_0_0_#1E293B] hover:-translate-y-1'}`}
         >
           <div className="flex justify-between items-start mb-4">
             <h3 className="font-black text-[#1E293B] uppercase tracking-widest">Tema Clásico</h3>
@@ -51,7 +51,7 @@ export const ThemeSwitcher: React.FC = () => {
         {/* TEMA MONOCROMÁTICO */}
         <button 
           onClick={() => changeTheme('monochrome')}
-          className={\`relative flex flex-col text-left border-2 p-4 transition-all \${theme === 'monochrome' ? 'border-[#1E293B] shadow-[4px_4px_0_0_#1E293B] bg-gray-100' : 'border-[#E2E8F0] hover:border-[#1E293B] hover:shadow-[4px_4px_0_0_#1E293B] hover:-translate-y-1'}\`}
+          className={`relative flex flex-col text-left border-2 p-4 transition-all ${theme === 'monochrome' ? 'border-[#1E293B] shadow-[4px_4px_0_0_#1E293B] bg-gray-100' : 'border-[#E2E8F0] hover:border-[#1E293B] hover:shadow-[4px_4px_0_0_#1E293B] hover:-translate-y-1'}`}
         >
           <div className="flex justify-between items-start mb-4">
             <h3 className="font-black text-[#1E293B] uppercase tracking-widest">Monocromático</h3>
