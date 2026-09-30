@@ -26,25 +26,12 @@ export const App: React.FC = () => {
   const [empleado, setEmpleado] = useState<EmpleadoSesion | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
-  // Escritorio (≥1280px): barra lateral expandida. Tablet horizontal (1024-1279px): contraída a íconos.
-  // Tablet vertical/celular (<1024px): oculta como menú deslizable.
-  // En PC/laptop se respeta la última elección del usuario (expandida o contraída).
-  const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
-    if (window.innerWidth < 1024) return false;
-    try {
-      const guardado = localStorage.getItem('menu_expandido');
-      if (guardado !== null) return guardado === '1';
-    } catch { /* sin acceso a localStorage: usar el valor por defecto */ }
-    return window.innerWidth >= 1280;
-  });
+  // El menú lateral arranca contraído: en PC/laptop muestra solo íconos y se despliega tocando
+  // el logo (que brilla para indicarlo); en tablet vertical/celular es un panel deslizable (botón ☰).
+  // Una vez abierto se contrae solo tras unos segundos sin usarlo (temporizador en SideBar).
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    const nuevo = !isSidebarOpen;
-    setIsSidebarOpen(nuevo);
-    if (window.innerWidth >= 1024) {
-      try { localStorage.setItem('menu_expandido', nuevo ? '1' : '0'); } catch { /* ignorar */ }
-    }
-  };
+  const toggleSidebar = () => setIsSidebarOpen((abierto) => !abierto);
 
   // Estado para el Enrutador Interno
   const [currentView, setCurrentView] = useState<string>('resumen');
@@ -135,6 +122,7 @@ export const App: React.FC = () => {
         currentView={vista}
         onNavigate={handleNavigate}
         onClose={() => setIsSidebarOpen(false)}
+        onToggle={toggleSidebar}
         permisos={empleado.permisos}
       />
 

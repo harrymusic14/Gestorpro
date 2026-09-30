@@ -64,7 +64,7 @@ export const TopBar: React.FC<TopBarProps> = ({ toggleSidebar, userEmail, onNavi
           onClick={toggleSidebar}
           data-menu-toggle
           aria-label="Abrir o cerrar menú"
-          className="p-2.5 border border-[#E2E8F0] bg-[#F8FAFC] text-[#1E293B] hover:border-[#10B981] hover:text-[#10B981] hover:bg-white transition-all rounded-none cursor-pointer group"
+          className="lg:hidden p-2.5 border border-[#E2E8F0] bg-[#F8FAFC] text-[#1E293B] hover:border-[#10B981] hover:text-[#10B981] hover:bg-white transition-all rounded-none cursor-pointer group"
         >
           <svg className="w-4 h-4 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth="1.5" d="M4 6h16M4 12h16M4 18h7" />
